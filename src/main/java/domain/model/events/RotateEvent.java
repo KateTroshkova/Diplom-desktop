@@ -1,5 +1,9 @@
 package domain.model.events;
 
 public class RotateEvent extends Event{
-    private double degree;
+    private int degree;
+
+    public RotateEvent(int degree){
+        this.degree = degree;
+    }
 }

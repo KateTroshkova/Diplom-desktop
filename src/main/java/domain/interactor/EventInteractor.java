@@ -7,7 +7,8 @@ public class EventInteractor {
 
     private MobileRepositoryApi repository;
 
-    void sendEvent(Event event){
-        repository.sendEvent(event);
+    public void sendEvent(Event event){
+        //repository.sendEvent(event);
+        System.out.println(event);
     }
 }

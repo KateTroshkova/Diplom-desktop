@@ -1,5 +1,9 @@
 package domain.model.events;
 
 public class VolumeEvent extends Event{
-    private Boolean isOn;
+    private boolean isOn;
+
+    public VolumeEvent(boolean isOn){
+        this.isOn = isOn;
+    }
 }

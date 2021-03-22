@@ -19,7 +19,8 @@ public class CustomApplication extends Application {
         primaryStage.setTitle("Troshkova E.L. AVT-716");
         URL url = new File("src/main/resources/design.fxml").toURI().toURL();
         BorderPane root = FXMLLoader.load(url);
-        primaryStage.setScene(new MainScene(root, 900, 1200));
+        MainScene scene = new MainScene(root, 600, 600);
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 }
