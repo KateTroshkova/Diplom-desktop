@@ -1,8 +1,13 @@
 package presentation;
 
 import javafx.application.Application;
-import javafx.scene.layout.StackPane;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 
 public class CustomApplication extends Application {
     public static void main(String[] args) {
@@ -10,10 +15,11 @@ public class CustomApplication extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) {
-        primaryStage.setTitle("Hello World!");
-        StackPane root = new StackPane();
-        primaryStage.setScene(new MainScene(root, 300, 250));
+    public void start(Stage primaryStage) throws IOException {
+        primaryStage.setTitle("Troshkova E.L. AVT-716");
+        URL url = new File("src/main/resources/design.fxml").toURI().toURL();
+        BorderPane root = FXMLLoader.load(url);
+        primaryStage.setScene(new MainScene(root, 900, 1200));
         primaryStage.show();
     }
 }
