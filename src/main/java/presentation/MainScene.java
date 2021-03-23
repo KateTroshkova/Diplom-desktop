@@ -3,15 +3,16 @@ package presentation;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import presentation.panel.BottomMenuPanel;
 import presentation.panel.LeftMenuPanel;
 import presentation.panel.MobilePanel;
+import presentation.panel.RightMenuPanel;
 
-public class MainScene extends Scene {
-
+public class MainScene extends Scene implements SceneChangeListener{
     @FXML
     private BorderPane rootContainer;
 
@@ -20,6 +21,9 @@ public class MainScene extends Scene {
 
     @FXML
     private LeftMenuPanel leftMenu;
+
+    @FXML
+    private RightMenuPanel rightMenu;
 
     @FXML
     private BottomMenuPanel bottomMenu;
@@ -42,6 +46,11 @@ public class MainScene extends Scene {
     @FXML
     private ImageView homeButton;
 
+    @FXML
+    private Button hotkeyButton;
+
+    private static SceneChangeListener sceneChangeListener;
+
     public MainScene(){
         super(new Pane(), 600, 600);
     }
@@ -54,9 +63,25 @@ public class MainScene extends Scene {
         leftMenu.setVolumeButton(volumeButton);
         bottomMenu.setBackButton(backButton);
         bottomMenu.setHomeButton(homeButton);
+        rightMenu.setHotkeyButton(hotkeyButton);
+        rightMenu.setSceneChangeListener(this);
+    }
+
+    public void setSceneChangeListener(SceneChangeListener sceneChangeListener) {
+        this.sceneChangeListener = sceneChangeListener;
     }
 
     public MainScene(Parent root, double width, double height) {
         super(root, width, height);
+    }
+
+    @Override
+    public void onOpenDialog() {
+        this.sceneChangeListener.onOpenDialog();
+    }
+
+    @Override
+    public void onCloseDialog() {
+        this.sceneChangeListener.onCloseDialog();
     }
 }

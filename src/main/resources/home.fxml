@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import presentation.panel.*?>
+
+<BorderPane fx:id="rootContainer" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.MainScene">
+    <left>
+        <LeftMenuPanel fx:id="leftMenu" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="64.0"
+                       BorderPane.alignment="CENTER">
+            <children>
+                <ImageView fx:id="rotateButton" fitHeight="32" fitWidth="32" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@rotate.png"/>
+                    </image>
+                    <VBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0"/>
+                    </VBox.margin>
+                </ImageView>
+                <ImageView fx:id="volumeButton" fitHeight="32" fitWidth="32" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@volume.png"/>
+                    </image>
+                    <VBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0"/>
+                    </VBox.margin>
+                </ImageView>
+                <ImageView fx:id="muteButton" fitHeight="32" fitWidth="32" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@mute.png"/>
+                    </image>
+                    <VBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0"/>
+                    </VBox.margin>
+                </ImageView>
+                <ImageView fx:id="lockButton" fitHeight="32" fitWidth="32" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@lock.png"/>
+                    </image>
+                    <VBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0"/>
+                    </VBox.margin>
+                </ImageView>
+            </children>
+            <padding>
+                <Insets bottom="8.0" left="8.0" right="8.0" top="8.0"/>
+            </padding>
+        </LeftMenuPanel>
+    </left>
+    <right>
+        <RightMenuPanel fx:id="rightMenu" prefHeight="100.0" prefWidth="220.0" BorderPane.alignment="CENTER">
+            <children>
+                <Label text="Model:...\nBrand:...\nMAC:..."/>
+                <HBox prefWidth="220.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Button mnemonicParsing="false" text="USB"/>
+                        <Button mnemonicParsing="false" text="WIFI"/>
+                        <Button mnemonicParsing="false" text="IP"/>
+                    </children>
+                </HBox>
+                <Button mnemonicParsing="false" text="Закончить трансляцию"/>
+                <Button fx:id="hotkeyButton" mnemonicParsing="false" text="Назначить горячие клавиши"/>
+                <Button mnemonicParsing="false" text="Отправить файл"/>
+            </children>
+        </RightMenuPanel>
+    </right>
+    <center>
+        <BorderPane>
+            <left>
+                <ImageView fitHeight="32" fitWidth="32" pickOnBounds="true"
+                           preserveRatio="true">
+                    <image>
+                        <Image url="@back.png"/>
+                    </image>
+                    <HBox.margin>
+                        <Insets bottom="8.0" left="32.0" right="32.0" top="8.0"/>
+                    </HBox.margin>
+                </ImageView>
+            </left>
+            <right>
+                <ImageView fitHeight="32" fitWidth="32" pickOnBounds="true"
+                           preserveRatio="true" rotate="180">
+                    <image>
+                        <Image url="@back.png"/>
+                    </image>
+                    <HBox.margin>
+                        <Insets bottom="8.0" left="32.0" right="32.0" top="8.0"/>
+                    </HBox.margin>
+                </ImageView>
+            </right>
+            <center>
+                <MobilePanel fx:id="mobilePanel" prefHeight="200.0" prefWidth="200.0"
+                             style="-fx-background-color: #00beff;"
+                             BorderPane.alignment="CENTER"/>
+            </center>
+            <bottom>
+                <BottomMenuPanel fx:id="bottomMenu" alignment="CENTER" prefHeight="64.0" prefWidth="200.0"
+                                 BorderPane.alignment="CENTER">
+                    <children>
+                        <ImageView fx:id="backButton" fitHeight="32" fitWidth="32" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@back.png"/>
+                            </image>
+                            <HBox.margin>
+                                <Insets bottom="8.0" left="32.0" right="32.0" top="8.0"/>
+                            </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="homeButton" fitHeight="32" fitWidth="32" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@home.png"/>
+                            </image>
+                            <HBox.margin>
+                                <Insets bottom="8.0" left="32.0" right="32.0" top="8.0"/>
+                            </HBox.margin>
+                        </ImageView>
+                    </children>
+                </BottomMenuPanel>
+            </bottom>
+        </BorderPane>
+    </center>
+</BorderPane>
