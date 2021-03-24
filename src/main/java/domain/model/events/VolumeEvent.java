@@ -6,4 +6,8 @@ public class VolumeEvent extends Event{
     public VolumeEvent(boolean isOn){
         this.isOn = isOn;
     }
+
+    public boolean isOn() {
+        return isOn;
+    }
 }

@@ -92,7 +92,7 @@
                 </ImageView>
             </right>
             <center>
-                <MobilePanel fx:id="mobilePanel" prefHeight="200.0" prefWidth="200.0"
+                <MobilePanel fx:id="mobilePanel" prefHeight="1480.0" prefWidth="720.0"
                              style="-fx-background-color: #00beff;"
                              BorderPane.alignment="CENTER"/>
             </center>

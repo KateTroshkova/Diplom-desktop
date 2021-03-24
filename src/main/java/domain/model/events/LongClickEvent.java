@@ -16,4 +16,12 @@ public class LongClickEvent extends Event{
                 ", y=" + y +
                 '}';
     }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
 }

@@ -52,7 +52,7 @@ public class MainScene extends Scene implements SceneChangeListener{
     private static SceneChangeListener sceneChangeListener;
 
     public MainScene(){
-        super(new Pane(), 600, 600);
+        super(new Pane(), 720, 1480);
     }
 
     @FXML

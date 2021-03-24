@@ -13,7 +13,7 @@ public class MobilePresenter extends TouchListener {
     private VideoInteractor videoInteractor;
 
     public MobilePresenter(){
-
+        eventInteractor = new EventInteractor();
     }
 
     public void startGesture(Point2D point){
@@ -24,7 +24,7 @@ public class MobilePresenter extends TouchListener {
     public void endGesture(Point2D point){
         addPoint(point);
         Event event = getEvent();
-        System.out.println(event);
+        eventInteractor.sendEvent(event);
     }
 
     public void nextGesture(Point2D point){

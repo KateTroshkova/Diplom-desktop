@@ -22,4 +22,20 @@ public class SwipeEvent extends Event{
                 ", toY=" + toY +
                 '}';
     }
+
+    public double getFromX() {
+        return fromX;
+    }
+
+    public double getFromY() {
+        return fromY;
+    }
+
+    public double getToX() {
+        return toX;
+    }
+
+    public double getToY() {
+        return toY;
+    }
 }

@@ -28,7 +28,7 @@ public class CustomApplication extends Application implements SceneChangeListene
         URL hotkeyUrl = new File("src/main/resources/dialog_hotkey.fxml").toURI().toURL();
         BorderPane homeRoot = FXMLLoader.load(homeUrl);
         VBox hotkeyRoot = FXMLLoader.load(hotkeyUrl);
-        main = new MainScene(homeRoot, 600, 600);
+        main = new MainScene(homeRoot, 720, 1480);
         hotkey = new HotkeyScene(hotkeyRoot, 600, 600);
         primaryStage.setScene(main);
         primaryStage.show();
