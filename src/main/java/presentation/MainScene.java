@@ -49,10 +49,13 @@ public class MainScene extends Scene implements SceneChangeListener{
     @FXML
     private Button hotkeyButton;
 
+    @FXML
+    private ImageView screenImage;
+
     private static SceneChangeListener sceneChangeListener;
 
     public MainScene(){
-        super(new Pane(), 720, 1480);
+        super(new Pane(), 300, 300);
     }
 
     @FXML
@@ -65,6 +68,7 @@ public class MainScene extends Scene implements SceneChangeListener{
         bottomMenu.setHomeButton(homeButton);
         rightMenu.setHotkeyButton(hotkeyButton);
         rightMenu.setSceneChangeListener(this);
+        mobilePanel.setScreenImage(screenImage);
     }
 
     public void setSceneChangeListener(SceneChangeListener sceneChangeListener) {

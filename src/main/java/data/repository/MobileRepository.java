@@ -4,6 +4,7 @@ import data.connection.ConnectionSourceFactory;
 import domain.api.MobileRepositoryApi;
 import domain.model.Screenshot;
 import domain.model.events.*;
+import javafx.scene.image.Image;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,6 +32,19 @@ public class MobileRepository implements MobileRepositoryApi {
 
     @Override
     public Screenshot receiveScreenshot() {
+        String mobilePath = "/storage/emulated/0/Pictures/screenshot1.jpg";
+        String pcPath = "C:\\Users\\Екатерина\\Desktop";
+        try {
+            Process process = Runtime.getRuntime().exec("adb pull " + mobilePath + " " + pcPath);
+            StreamGobbler streamGobbler = new StreamGobbler(process.getInputStream(), System.out::println);
+            Executors.newSingleThreadExecutor().submit(streamGobbler);
+            process.waitFor();
+            File file = new File("C:\\Users\\Екатерина\\Desktop\\screenshot1.jpg");
+            Image image = new Image(file.toURI().toString());
+            return new Screenshot(image, (int)image.getWidth(), (int)image.getHeight(), "", 0);
+        } catch (InterruptedException | IOException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 

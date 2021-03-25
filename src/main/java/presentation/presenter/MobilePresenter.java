@@ -2,18 +2,37 @@ package presentation.presenter;
 
 import domain.interactor.EventInteractor;
 import domain.interactor.VideoInteractor;
+import domain.model.Screenshot;
 import domain.model.events.Event;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.disposables.Disposable;
 import javafx.geometry.Point2D;
-import presentation.common.EventListener;
 import presentation.common.TouchListener;
+import presentation.view.MobileView;
+
+import java.util.concurrent.TimeUnit;
 
 public class MobilePresenter extends TouchListener {
 
     private EventInteractor eventInteractor;
     private VideoInteractor videoInteractor;
+    private Disposable subscription;
+    private MobileView view;
 
-    public MobilePresenter(){
+    public MobilePresenter(MobileView view){
+        this.view = view;
         eventInteractor = new EventInteractor();
+        videoInteractor = new VideoInteractor();
+        subscription = Flowable
+                .timer(5, TimeUnit.SECONDS)
+                .repeat()
+                .subscribe(
+                        e->{
+                            Screenshot screenshot = videoInteractor.receiveScreenshot();
+                            view.updateImage(screenshot);
+                        },
+                        System.out::println
+                );
     }
 
     public void startGesture(Point2D point){

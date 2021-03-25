@@ -1,5 +1,6 @@
 package domain.interactor;
 
+import data.repository.MobileRepository;
 import domain.api.MobileRepositoryApi;
 import domain.model.Screenshot;
 
@@ -9,15 +10,19 @@ public class VideoInteractor {
 
     private MobileRepositoryApi repository;
 
-    Screenshot receiveScreenshot() {
+    public VideoInteractor(){
+        repository = new MobileRepository();
+    }
+
+    public Screenshot receiveScreenshot() {
         return repository.receiveScreenshot();
     }
 
-    void sendFile(File file) {
+    public void sendFile(File file) {
         repository.sendFile(file);
     }
 
-    File receiveFile() {
+    public File receiveFile() {
         return repository.receiveFile();
     }
 }
