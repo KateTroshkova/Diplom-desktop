@@ -10,4 +10,9 @@ public class WifiSource implements ConnectionSource{
     public void disconnect() {
 
     }
+
+    @Override
+    public boolean isConnect() {
+        return false;
+    }
 }

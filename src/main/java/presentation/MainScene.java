@@ -49,6 +49,12 @@ public class MainScene extends Scene implements SceneChangeListener{
     @FXML
     private Button hotkeyButton;
 
+    @FXML
+    public Button usbButton;
+
+    @FXML
+    public Button disconnectButton;
+
     private static SceneChangeListener sceneChangeListener;
 
     public MainScene(){
@@ -64,6 +70,8 @@ public class MainScene extends Scene implements SceneChangeListener{
         bottomMenu.setBackButton(backButton);
         bottomMenu.setHomeButton(homeButton);
         rightMenu.setHotkeyButton(hotkeyButton);
+        rightMenu.setDisconnectButton(disconnectButton);
+        rightMenu.setUsbConnectionButton(usbButton);
         rightMenu.setSceneChangeListener(this);
     }
 

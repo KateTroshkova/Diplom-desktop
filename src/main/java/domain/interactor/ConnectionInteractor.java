@@ -1,15 +1,20 @@
 package domain.interactor;
 
+import data.repository.ConnectionRepository;
 import domain.api.ConnectionRepositoryApi;
 
 public class ConnectionInteractor {
     private ConnectionRepositoryApi repository;
 
-    void connect(){
-        repository.connect();
+    public ConnectionInteractor(){
+        repository = new ConnectionRepository();
     }
 
-    void disconnect(){
+    public void connect(String type){
+        repository.connect(type);
+    }
+
+    public void disconnect(){
         repository.disconnect();
     }
 }

@@ -2,7 +2,7 @@ package domain.api;
 
 public interface ConnectionRepositoryApi {
 
-    void connect();
+    void connect(String type);
 
     void disconnect();
 }

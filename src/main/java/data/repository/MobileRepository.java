@@ -1,54 +1,57 @@
 package data.repository;
 
+import data.connection.ConnectionSource;
 import data.connection.ConnectionSourceFactory;
 import domain.api.MobileRepositoryApi;
+import domain.common.ADBHelper;
 import domain.model.Screenshot;
 import domain.model.events.*;
 import javafx.scene.image.Image;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.Executors;
 
 public class MobileRepository implements MobileRepositoryApi {
 
     private ConnectionSourceFactory factory;
-    private int currentIndex=9;
+    private ADBHelper adb;
+    private ConnectionSource connection;
+    private int currentIndex = 9;
 
     public MobileRepository() {
-
+        adb = new ADBHelper();
+        factory = ConnectionSourceFactory.getInstance("USB");
+        connection = factory.getConnection();
     }
 
     @Override
     public void sendEvent(Event event) {
-        try {
-            Process process = Runtime.getRuntime().exec(prepareCommand(event));
-            StreamGobbler streamGobbler = new StreamGobbler(process.getInputStream(), System.out::println);
-            Executors.newSingleThreadExecutor().submit(streamGobbler);
-            process.waitFor();
-        } catch (InterruptedException | IOException e) {
-            e.printStackTrace();
+        if (connection.isConnect()) {
+            try {
+                adb.executeCommand(prepareCommand(event));
+            } catch (InterruptedException | IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     @Override
     public Screenshot receiveScreenshot() {
-        currentIndex++;
-        if (currentIndex==20){
-            currentIndex=0;
-        }
-        String mobilePath = "/storage/emulated/0/Pictures/screenshot"+currentIndex+".jpg";
-        String pcPath = "C:\\Users\\Екатерина\\Desktop";
-        try {
-            Process process = Runtime.getRuntime().exec("adb pull " + mobilePath + " " + pcPath);
-            StreamGobbler streamGobbler = new StreamGobbler(process.getInputStream(), System.out::println);
-            Executors.newSingleThreadExecutor().submit(streamGobbler);
-            process.waitFor();
-            File file = new File("C:\\Users\\Екатерина\\Desktop\\screenshot"+currentIndex+".jpg");
-            Image image = new Image(file.toURI().toString());
-            return new Screenshot(image, (int)image.getWidth(), (int)image.getHeight(), "", 0);
-        } catch (InterruptedException | IOException e) {
-            e.printStackTrace();
+        if (connection.isConnect()) {
+            currentIndex++;
+            if (currentIndex == 20) {
+                currentIndex = 0;
+            }
+            String mobilePath = "/storage/emulated/0/Pictures/screenshot" + currentIndex + ".jpg";
+            String pcPath = "C:\\Users\\Екатерина\\Desktop";
+            try {
+                adb.executeCommand("adb pull " + mobilePath + " " + pcPath);
+                File file = new File("C:\\Users\\Екатерина\\Desktop\\screenshot" + currentIndex + ".jpg");
+                Image image = new Image(file.toURI().toString());
+                return new Screenshot(image, (int) image.getWidth(), (int) image.getHeight(), "", 0);
+            } catch (InterruptedException | IOException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }

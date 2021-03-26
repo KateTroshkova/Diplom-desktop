@@ -10,4 +10,9 @@ public class IPSource implements ConnectionSource{
     public void disconnect() {
 
     }
+
+    @Override
+    public boolean isConnect() {
+        return false;
+    }
 }
