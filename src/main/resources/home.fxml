@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import presentation.panel.*?>
 
-<BorderPane fx:id="rootContainer" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1"
+<BorderPane fx:id="rootContainer" prefHeight="800.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.MainScene">
     <left>
         <LeftMenuPanel fx:id="leftMenu" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="64.0"
@@ -92,12 +92,8 @@
                 </ImageView>
             </right>
             <center>
-                <MobilePanel fx:id="mobilePanel" prefHeight="300.0" prefWidth="300.0"
-                             style="-fx-background-color: #00beff;"
-                             BorderPane.alignment="CENTER">
-                    <ImageView fx:id="screenImage" fitHeight="300" fitWidth="300" pickOnBounds="true"
-                               preserveRatio="true"/>
-                </MobilePanel>
+                <MobilePanel fx:id="mobilePanel" fitHeight="300" fitWidth="300" pickOnBounds="true"
+                             preserveRatio="true"/>
             </center>
             <bottom>
                 <BottomMenuPanel fx:id="bottomMenu" alignment="CENTER" prefHeight="64.0" prefWidth="200.0"
