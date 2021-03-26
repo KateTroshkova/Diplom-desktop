@@ -24,7 +24,7 @@ public class MobilePresenter extends TouchListener {
         eventInteractor = new EventInteractor();
         videoInteractor = new VideoInteractor();
         subscription = Flowable
-                .timer(5, TimeUnit.SECONDS)
+                .timer(100, TimeUnit.MILLISECONDS)
                 .repeat()
                 .subscribe(
                         e->{

@@ -39,10 +39,12 @@ public class MobilePanel extends Pane implements MobileView {
 
     @Override
     public void updateImage(Screenshot screenshot) {
-        screenImage.setFitWidth(screenshot.getWidth()/2.0);
-        screenImage.setFitHeight(screenshot.getHeight()/2.0);
-        setWidth(screenshot.getWidth()/2.0);
-        setHeight(screenshot.getHeight()/2.0);
-        screenImage.setImage(screenshot.getScreenshot());
+        if (screenshot.getScreenshot()!=null) {
+            screenImage.setFitWidth(screenshot.getWidth() / 2.0);
+            screenImage.setFitHeight(screenshot.getHeight() / 2.0);
+            setWidth(screenshot.getWidth() / 2.0);
+            setHeight(screenshot.getHeight() / 2.0);
+            screenImage.setImage(screenshot.getScreenshot());
+        }
     }
 }

@@ -13,6 +13,7 @@ import java.util.concurrent.Executors;
 public class MobileRepository implements MobileRepositoryApi {
 
     private ConnectionSourceFactory factory;
+    private int currentIndex=9;
 
     public MobileRepository() {
 
@@ -32,14 +33,18 @@ public class MobileRepository implements MobileRepositoryApi {
 
     @Override
     public Screenshot receiveScreenshot() {
-        String mobilePath = "/storage/emulated/0/Pictures/screenshot1.jpg";
+        currentIndex++;
+        if (currentIndex==20){
+            currentIndex=0;
+        }
+        String mobilePath = "/storage/emulated/0/Pictures/screenshot"+currentIndex+".jpg";
         String pcPath = "C:\\Users\\Екатерина\\Desktop";
         try {
             Process process = Runtime.getRuntime().exec("adb pull " + mobilePath + " " + pcPath);
             StreamGobbler streamGobbler = new StreamGobbler(process.getInputStream(), System.out::println);
             Executors.newSingleThreadExecutor().submit(streamGobbler);
             process.waitFor();
-            File file = new File("C:\\Users\\Екатерина\\Desktop\\screenshot1.jpg");
+            File file = new File("C:\\Users\\Екатерина\\Desktop\\screenshot"+currentIndex+".jpg");
             Image image = new Image(file.toURI().toString());
             return new Screenshot(image, (int)image.getWidth(), (int)image.getHeight(), "", 0);
         } catch (InterruptedException | IOException e) {
