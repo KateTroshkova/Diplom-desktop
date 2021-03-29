@@ -12,6 +12,9 @@ import presentation.panel.LeftMenuPanel;
 import presentation.panel.MobilePanel;
 import presentation.panel.RightMenuPanel;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 public class MainScene extends Scene implements SceneChangeListener{
     @FXML
     private BorderPane rootContainer;
@@ -55,6 +58,15 @@ public class MainScene extends Scene implements SceneChangeListener{
     @FXML
     public Button disconnectButton;
 
+    @FXML
+    public Button sendButton;
+
+    @FXML
+    public Button wifiButton;
+
+    @FXML
+    public Button ipButton;
+
     private static SceneChangeListener sceneChangeListener;
 
     public MainScene(){
@@ -63,6 +75,14 @@ public class MainScene extends Scene implements SceneChangeListener{
 
     @FXML
     public void initialize(){
+        Locale current = Locale.getDefault();
+        ResourceBundle res = ResourceBundle.getBundle("i18n.string", current);
+        hotkeyButton.setText(res.getString("label.hotkey"));
+        disconnectButton.setText(res.getString("label.stop"));
+        sendButton.setText(res.getString("label.send"));
+        usbButton.setText(res.getString("text.USB"));
+        ipButton.setText(res.getString("text.IP"));
+        wifiButton.setText(res.getString("text.WIFI"));
         leftMenu.setLockButton(lockButton);
         leftMenu.setMuteButton(muteButton);
         leftMenu.setRotateButton(rotateButton);

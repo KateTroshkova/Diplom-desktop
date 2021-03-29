@@ -57,13 +57,13 @@
                 <HBox prefWidth="220.0" BorderPane.alignment="CENTER">
                     <children>
                         <Button fx:id="usbButton" mnemonicParsing="false" text="USB"/>
-                        <Button mnemonicParsing="false" text="WIFI"/>
-                        <Button mnemonicParsing="false" text="IP"/>
+                        <Button fx:id="wifiButton" mnemonicParsing="false" text="WIFI"/>
+                        <Button fx:id="ipButton" mnemonicParsing="false" text="IP"/>
                     </children>
                 </HBox>
                 <Button fx:id="disconnectButton" mnemonicParsing="false" text="Закончить трансляцию"/>
                 <Button fx:id="hotkeyButton" mnemonicParsing="false" text="Назначить горячие клавиши"/>
-                <Button mnemonicParsing="false" text="Отправить файл"/>
+                <Button fx:id="sendButton" mnemonicParsing="false" text="Отправить файл"/>
             </children>
         </RightMenuPanel>
     </right>
