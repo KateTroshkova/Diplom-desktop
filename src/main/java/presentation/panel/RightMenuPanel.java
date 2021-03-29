@@ -14,6 +14,10 @@ public class RightMenuPanel extends VBox {
     private SceneChangeListener sceneChangeListener;
     private MenuPresenter presenter;
 
+    public RightMenuPanel(){
+        presenter = new MenuPresenter();
+    }
+
     public void setHotkeyButton(Button hotkeyButton) {
         this.hotkeyButton = hotkeyButton;
         this.hotkeyButton.setOnAction(e ->
