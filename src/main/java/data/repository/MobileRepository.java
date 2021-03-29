@@ -4,6 +4,7 @@ import data.connection.ConnectionSource;
 import data.connection.ConnectionSourceFactory;
 import domain.api.MobileRepositoryApi;
 import domain.common.ADBHelper;
+import domain.common.FileUtils;
 import domain.model.Screenshot;
 import domain.model.events.*;
 import javafx.scene.image.Image;
@@ -42,11 +43,15 @@ public class MobileRepository implements MobileRepositoryApi {
             if (currentIndex == 20) {
                 currentIndex = 0;
             }
-            String mobilePath = "/storage/emulated/0/Pictures/screenshot" + currentIndex + ".jpg";
-            String pcPath = "C:\\Users\\Екатерина\\Desktop";
+            String mobilePath = FileUtils.baseMobilePath+"/screenshot" + currentIndex + ".jpg";
+            String pcPath = FileUtils.baseDesktopPath;
+            File root = new File(pcPath);
+            if (!root.exists()){
+                root.mkdirs();
+            }
             try {
                 adb.executeCommand("adb pull " + mobilePath + " " + pcPath);
-                File file = new File("C:\\Users\\Екатерина\\Desktop\\screenshot" + currentIndex + ".jpg");
+                File file = new File(pcPath+"\\screenshot" + currentIndex + ".jpg");
                 Image image = new Image(file.toURI().toString());
                 return new Screenshot(image, (int) image.getWidth(), (int) image.getHeight(), "", 0);
             } catch (InterruptedException | IOException e) {
