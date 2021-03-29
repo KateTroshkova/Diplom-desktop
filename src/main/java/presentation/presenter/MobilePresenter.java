@@ -28,8 +28,11 @@ public class MobilePresenter extends TouchListener {
                 .repeat()
                 .subscribe(
                         e->{
-                            Screenshot screenshot = videoInteractor.receiveScreenshot();
-                            view.updateImage(screenshot);
+                            try {
+                                Screenshot screenshot = videoInteractor.receiveScreenshot();
+                                view.updateImage(screenshot);
+                            }
+                            catch (NullPointerException ignore){ }
                         },
                         System.out::println
                 );

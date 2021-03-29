@@ -12,7 +12,7 @@ public class USBSource implements ConnectionSource {
 
     private boolean isConnect;
     private Disposable connection;
-    private ADBHelper adb;
+    private final ADBHelper adb;
 
     public USBSource() {
         adb = new ADBHelper();
@@ -20,7 +20,7 @@ public class USBSource implements ConnectionSource {
 
     @Override
     public void connect() {
-        String mobilePath = "/storage/emulated/0/Pictures/mobile_info.txt";
+        String mobilePath = "/storage/emulated/0/Pictures/diplom/mobile_info.txt";
         String pcPath = "C:\\Users\\Екатерина\\Desktop";
         connection = Flowable
                 .interval(1, TimeUnit.SECONDS)

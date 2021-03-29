@@ -15,6 +15,15 @@ public class MenuPresenter extends EventListener {
 
     public MenuPresenter() {
         eventInteractor = new EventInteractor();
+        connectionInteractor = new ConnectionInteractor();
+    }
+
+    public void connect(String type){
+        connectionInteractor.connect("USB");
+    }
+
+    public void disconnect(){
+        connectionInteractor.disconnect();
     }
 
     public void rotate() {

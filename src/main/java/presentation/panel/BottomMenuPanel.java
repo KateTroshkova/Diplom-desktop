@@ -1,7 +1,5 @@
 package presentation.panel;
 
-import javafx.fxml.FXML;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -9,10 +7,8 @@ import presentation.presenter.MenuPresenter;
 
 public class BottomMenuPanel extends HBox {
 
-    //@FXML
     private ImageView backButton;
 
-    //@FXML
     private ImageView homeButton;
 
     private MenuPresenter presenter;

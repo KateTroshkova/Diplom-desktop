@@ -1,22 +1,18 @@
 package presentation.panel;
 
-import domain.interactor.ConnectionInteractor;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import presentation.SceneChangeListener;
+import presentation.presenter.MenuPresenter;
 
 public class RightMenuPanel extends VBox {
 
     private Button hotkeyButton;
     private Button usbConnectionButton;
     private Button disconnectButton;
-    private ConnectionInteractor connectionInteractor;
 
     private SceneChangeListener sceneChangeListener;
-
-    public RightMenuPanel(){
-        connectionInteractor = new ConnectionInteractor();
-    }
+    private MenuPresenter presenter;
 
     public void setHotkeyButton(Button hotkeyButton) {
         this.hotkeyButton = hotkeyButton;
@@ -28,14 +24,14 @@ public class RightMenuPanel extends VBox {
     public void setUsbConnectionButton(Button usbConnectionButton) {
         this.usbConnectionButton = usbConnectionButton;
         this.usbConnectionButton.setOnAction(e -> {
-            connectionInteractor.connect("USB");
+            presenter.connect("USB");
         });
     }
 
     public void setDisconnectButton(Button disconnectButton) {
         this.disconnectButton = disconnectButton;
         this.disconnectButton.setOnAction(e -> {
-            connectionInteractor.disconnect();
+            presenter.disconnect();
         });
     }
 

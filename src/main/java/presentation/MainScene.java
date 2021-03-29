@@ -76,7 +76,7 @@ public class MainScene extends Scene implements SceneChangeListener{
     }
 
     public void setSceneChangeListener(SceneChangeListener sceneChangeListener) {
-        this.sceneChangeListener = sceneChangeListener;
+        MainScene.sceneChangeListener = sceneChangeListener;
     }
 
     public MainScene(Parent root, double width, double height) {
@@ -85,11 +85,11 @@ public class MainScene extends Scene implements SceneChangeListener{
 
     @Override
     public void onOpenDialog() {
-        this.sceneChangeListener.onOpenDialog();
+        sceneChangeListener.onOpenDialog();
     }
 
     @Override
     public void onCloseDialog() {
-        this.sceneChangeListener.onCloseDialog();
+        sceneChangeListener.onCloseDialog();
     }
 }

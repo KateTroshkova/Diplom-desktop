@@ -8,16 +8,12 @@ import presentation.presenter.MenuPresenter;
 
 public class LeftMenuPanel extends VBox {
 
-    //@FXML
     private ImageView rotateButton;
 
-    //@FXML
     private ImageView volumeButton;
 
-    //@FXML
     private ImageView muteButton;
 
-    //@FXML
     private ImageView lockButton;
 
     private MenuPresenter presenter;
