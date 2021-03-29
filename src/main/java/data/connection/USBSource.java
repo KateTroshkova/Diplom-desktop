@@ -1,10 +1,12 @@
 package data.connection;
 
 import domain.common.ADBHelper;
+import domain.common.FileUtils;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -20,8 +22,12 @@ public class USBSource implements ConnectionSource {
 
     @Override
     public void connect() {
-        String mobilePath = "/storage/emulated/0/Pictures/diplom/mobile_info.txt";
-        String pcPath = "C:\\Users\\Екатерина\\Desktop";
+        String mobilePath = FileUtils.baseMobilePath + "/mobile_info.txt";
+        String pcPath = FileUtils.baseDesktopPath;
+        File root = new File(pcPath);
+        if (!root.exists()){
+            root.mkdirs();
+        }
         connection = Flowable
                 .interval(1, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
@@ -47,6 +53,7 @@ public class USBSource implements ConnectionSource {
     public void disconnect() {
         connection.dispose();
         isConnect = false;
+        deleteTempFiles();
     }
 
     @Override
@@ -59,5 +66,18 @@ public class USBSource implements ConnectionSource {
             disconnect();
         }
         isConnect = false;
+    }
+
+    private void deleteTempFiles(){
+        File info = new File(FileUtils.baseDesktopPath + "\\mobile_info.txt");
+        if (info.exists()) {
+            info.delete();
+        }
+        for(int i=0; i<20; i++){
+            File screenshot = new File(FileUtils.baseDesktopPath + "\\screenshot"+i+".jpg");
+            if (screenshot.exists()) {
+                screenshot.delete();
+            }
+        }
     }
 }
