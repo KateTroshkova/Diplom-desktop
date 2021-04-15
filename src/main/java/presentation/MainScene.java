@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -67,6 +68,9 @@ public class MainScene extends Scene implements SceneChangeListener{
     @FXML
     public Button ipButton;
 
+    @FXML
+    public TextField ipField;
+
     private static SceneChangeListener sceneChangeListener;
 
     public MainScene(){
@@ -92,6 +96,8 @@ public class MainScene extends Scene implements SceneChangeListener{
         rightMenu.setHotkeyButton(hotkeyButton);
         rightMenu.setDisconnectButton(disconnectButton);
         rightMenu.setUsbConnectionButton(usbButton);
+        rightMenu.setIPConnectionButton(ipButton);
+        rightMenu.setIpField(ipField);
         rightMenu.setSceneChangeListener(this);
     }
 

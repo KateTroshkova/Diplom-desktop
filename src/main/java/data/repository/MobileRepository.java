@@ -21,12 +21,11 @@ public class MobileRepository implements MobileRepositoryApi {
 
     public MobileRepository() {
         adb = new ADBHelper();
-        factory = ConnectionSourceFactory.getInstance("USB");
-        connection = factory.getConnection();
     }
 
     @Override
     public void sendEvent(Event event) {
+        lateinitConnection();
         if (connection.isConnect()) {
             try {
                 adb.executeCommand(prepareCommand(event));
@@ -38,6 +37,7 @@ public class MobileRepository implements MobileRepositoryApi {
 
     @Override
     public Screenshot receiveScreenshot() {
+        lateinitConnection();
         if (connection.isConnect()) {
             currentIndex++;
             if (currentIndex == 20) {
@@ -105,5 +105,10 @@ public class MobileRepository implements MobileRepositoryApi {
             }
         }
         return "";
+    }
+
+    private void lateinitConnection(){
+        factory = ConnectionSourceFactory.getLastInstance();
+        connection = factory.getConnection();
     }
 }

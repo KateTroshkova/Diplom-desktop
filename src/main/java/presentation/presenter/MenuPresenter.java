@@ -1,5 +1,6 @@
 package presentation.presenter;
 
+import data.connection.ConnectionSettings;
 import domain.interactor.ConnectionInteractor;
 import domain.interactor.EventInteractor;
 import domain.model.events.*;
@@ -14,12 +15,12 @@ public class MenuPresenter extends EventListener {
     private boolean isLocked;
 
     public MenuPresenter() {
-        eventInteractor = new EventInteractor();
         connectionInteractor = new ConnectionInteractor();
+        eventInteractor = new EventInteractor();
     }
 
-    public void connect(String type){
-        connectionInteractor.connect("USB");
+    public void connect(String type, ConnectionSettings settings){
+        connectionInteractor.connect(type, settings);
     }
 
     public void disconnect(){

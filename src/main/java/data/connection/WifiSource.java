@@ -1,6 +1,6 @@
 package data.connection;
 
-public class WifiSource implements ConnectionSource{
+public class WifiSource extends ConnectionSource{
     @Override
     public void connect() {
 

@@ -1,5 +1,6 @@
 package domain.interactor;
 
+import data.connection.ConnectionSettings;
 import data.repository.ConnectionRepository;
 import domain.api.ConnectionRepositoryApi;
 
@@ -10,8 +11,8 @@ public class ConnectionInteractor {
         repository = new ConnectionRepository();
     }
 
-    public void connect(String type){
-        repository.connect(type);
+    public void connect(String type, ConnectionSettings settings){
+        repository.connect(type, settings);
     }
 
     public void disconnect(){

@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-public class USBSource implements ConnectionSource {
+public class USBSource extends ConnectionSource {
 
     private boolean isConnect;
     private Disposable connection;
@@ -24,10 +24,7 @@ public class USBSource implements ConnectionSource {
     public void connect() {
         String mobilePath = FileUtils.baseMobilePath + "/mobile_info.txt";
         String pcPath = FileUtils.baseDesktopPath;
-        File root = new File(pcPath);
-        if (!root.exists()){
-            root.mkdirs();
-        }
+        prepareFileDirectory();
         connection = Flowable
                 .interval(1, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
@@ -54,30 +51,5 @@ public class USBSource implements ConnectionSource {
         connection.dispose();
         isConnect = false;
         deleteTempFiles();
-    }
-
-    @Override
-    public boolean isConnect() {
-        return isConnect;
-    }
-
-    private void handleConnectionError() {
-        if (isConnect) {
-            disconnect();
-        }
-        isConnect = false;
-    }
-
-    private void deleteTempFiles(){
-        File info = new File(FileUtils.baseDesktopPath + "\\mobile_info.txt");
-        if (info.exists()) {
-            info.delete();
-        }
-        for(int i=0; i<20; i++){
-            File screenshot = new File(FileUtils.baseDesktopPath + "\\screenshot"+i+".jpg");
-            if (screenshot.exists()) {
-                screenshot.delete();
-            }
-        }
     }
 }
