@@ -1,17 +1,25 @@
 package data.database.converter;
 
+import data.database.entity.DesktopAction;
 import data.database.entity.HotkeyEntity;
+import data.database.entity.MobileAction;
 import domain.common.Mapper;
 import domain.model.Hotkey;
 
 public class HotkeyMapper implements Mapper<Hotkey, HotkeyEntity> {
     @Override
     public HotkeyEntity fromBusiness(Hotkey hotkey) {
-        return null;
+        return new HotkeyEntity(
+                new MobileAction(hotkey.getMobileAction()),
+                new DesktopAction(hotkey.getDesktopAction())
+        );
     }
 
     @Override
     public Hotkey fromDto(HotkeyEntity hotkeyEntity) {
-        return null;
+        return new Hotkey(
+                hotkeyEntity.getMobileAction().getName(),
+                hotkeyEntity.getDesktopAction().getName()
+        );
     }
 }
