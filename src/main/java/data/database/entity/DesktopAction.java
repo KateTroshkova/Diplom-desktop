@@ -14,7 +14,7 @@ public class DesktopAction {
     private int id;
     @Column(name = "desktop_name", nullable = false)
     private String name;
-    @OneToMany(mappedBy = "desktop_action", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "desktopAction", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<HotkeyEntity> hotkey;
 
     public DesktopAction() {

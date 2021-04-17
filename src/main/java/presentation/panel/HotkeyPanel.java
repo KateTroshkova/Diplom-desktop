@@ -6,4 +6,8 @@ import presentation.presenter.HotkeyPresenter;
 public class HotkeyPanel extends Pane {
 
     private HotkeyPresenter presenter;
+
+    public HotkeyPanel(){
+        presenter = new HotkeyPresenter();
+    }
 }

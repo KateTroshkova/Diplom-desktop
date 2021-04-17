@@ -26,7 +26,7 @@ public class HotkeyDao {
         return keywords;
     }
 
-    public void deleteByActions(HotkeyEntity hotkey){
+    public void delete(HotkeyEntity hotkey){
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         session.delete(hotkey);

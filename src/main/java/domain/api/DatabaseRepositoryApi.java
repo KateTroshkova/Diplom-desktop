@@ -1,12 +1,16 @@
 package domain.api;
 
 import domain.model.Hotkey;
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Single;
 
 import java.util.List;
 
 public interface DatabaseRepositoryApi {
 
-    List<Hotkey> readAllHotkeys();
+    Single<List<Hotkey>> readAllHotkeys();
 
-    void saveHotkey(Hotkey hotkey);
+    Completable saveHotkey(Hotkey hotkey);
+
+    Completable removeHotkey(Hotkey hotkey);
 }

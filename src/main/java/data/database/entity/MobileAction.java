@@ -14,7 +14,7 @@ public class MobileAction {
     private int id;
     @Column(name = "mobile_name", nullable = false)
     private String name;
-    @OneToMany(mappedBy = "mobile_action", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "mobileAction", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<HotkeyEntity> hotkey;
 
     public MobileAction(){
