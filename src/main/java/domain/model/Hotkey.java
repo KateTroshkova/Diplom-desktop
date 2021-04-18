@@ -34,4 +34,9 @@ public class Hotkey {
     public void setDesktopAction(String desktopAction) {
         this.desktopAction = desktopAction;
     }
+
+    @Override
+    public String toString() {
+        return mobileAction + " - "+desktopAction;
+    }
 }

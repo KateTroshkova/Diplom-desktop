@@ -98,6 +98,23 @@ public class HotkeyPresenter extends EventListener {
         );
     }
 
+    public void removeHotkey(String hotkey) {
+        String[] actions = hotkey.split(" - ");
+        System.out.println("to delete "+hotkey);
+        subsriptions.add(
+                hotkeyInteractor
+                        .removeHotkey(new Hotkey(actions[0], actions[1]))
+                        .subscribeOn(Schedulers.io())
+                        .subscribe(
+                                () -> {
+                                },
+                                (error) -> {
+                                    System.out.println(error);
+                                }
+                        )
+        );
+    }
+
     public void handleEvent(KeyEvent event) {
         Hotkey input = null;
         for (Hotkey hotkey : hotkeys) {

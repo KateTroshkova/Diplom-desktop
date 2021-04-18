@@ -54,6 +54,9 @@ public class HotkeyPanel extends VBox implements HotkeyView, DataReadyListener {
 
     public void setHotkeyList(ListView<String> hotkeyList) {
         this.hotkeyList = hotkeyList;
+        this.hotkeyList.setOnMouseClicked((event) -> {
+            presenter.removeHotkey(hotkeyList.getSelectionModel().getSelectedItem());
+        });
     }
 
     public Spinner getMobileSpinner() {
@@ -90,6 +93,7 @@ public class HotkeyPanel extends VBox implements HotkeyView, DataReadyListener {
     public void setBackButton(Button backButton) {
         this.backButton = backButton;
         this.backButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            hotkeyList.getItems().clear();
             sceneChangeListener.onCloseDialog();
         });
     }

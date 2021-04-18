@@ -21,6 +21,8 @@ public class DatabaseRepository implements DatabaseRepositoryApi {
     private MobileActionDao mobileDao;
     private DesktopActionDao desktopDao;
 
+    private List<HotkeyEntity> hotkeys;
+
     public DatabaseRepository() {
         dao = new HotkeyDao();
         mobileDao = new MobileActionDao();
@@ -55,6 +57,7 @@ public class DatabaseRepository implements DatabaseRepositoryApi {
     public Single<List<Hotkey>> readAllHotkeys() {
         return Single.fromCallable(() -> {
             List<HotkeyEntity> dbEntities = dao.readAll();
+            this.hotkeys = dbEntities;
             HotkeyMapper mapper = new HotkeyMapper();
             List<Hotkey> hotkeys = new ArrayList<>();
             for (HotkeyEntity entity : dbEntities) {
@@ -79,9 +82,13 @@ public class DatabaseRepository implements DatabaseRepositoryApi {
     @Override
     public Completable removeHotkey(Hotkey hotkey) {
         return Completable.fromAction(() -> {
-            HotkeyMapper mapper = new HotkeyMapper();
-            HotkeyEntity businessHotkey = mapper.fromBusiness(hotkey);
+            HotkeyEntity dbEntity = null;
+            for (HotkeyEntity entity : hotkeys) {
+                if (entity.getDesktopAction().getName().equals(hotkey.getDesktopAction()) && entity.getMobileAction().getName().equals(hotkey.getMobileAction())) {
+                    dbEntity = entity;
+                }
+            }
+            dao.delete(dbEntity);
         });
     }
-    //desktopAction_desktop_id int4, mobileAction_mobile_id int4,
 }
