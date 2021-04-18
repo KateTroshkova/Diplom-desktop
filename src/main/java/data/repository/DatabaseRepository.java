@@ -67,8 +67,12 @@ public class DatabaseRepository implements DatabaseRepositoryApi {
     @Override
     public Completable saveHotkey(Hotkey hotkey) {
         return Completable.fromAction(() -> {
-            HotkeyMapper mapper = new HotkeyMapper();
-            HotkeyEntity businessHotkey = mapper.fromBusiness(hotkey);
+            MobileAction mobileAction = mobileDao.readByName(hotkey.getMobileAction());
+            DesktopAction desktopAction = desktopDao.readByName(hotkey.getDesktopAction());
+            HotkeyEntity dbEntity = new HotkeyEntity(mobileAction, desktopAction);
+            mobileAction.setHotkey(new ArrayList<>());
+            mobileAction.addHotkey(dbEntity);
+            dao.save(dbEntity);
         });
     }
 

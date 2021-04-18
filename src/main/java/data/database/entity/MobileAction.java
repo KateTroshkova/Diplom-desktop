@@ -1,6 +1,7 @@
 package data.database.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,7 +16,7 @@ public class MobileAction {
     @Column(name = "mobile_name", nullable = false)
     private String name;
     @OneToMany(mappedBy = "mobileAction", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<HotkeyEntity> hotkey;
+    private List<HotkeyEntity> hotkey = new ArrayList<>();
 
     public MobileAction(){
 
@@ -44,6 +45,10 @@ public class MobileAction {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setHotkey(List<HotkeyEntity> hotkey) {
+        this.hotkey = hotkey;
     }
 
     public void addHotkey(HotkeyEntity hotkey) {

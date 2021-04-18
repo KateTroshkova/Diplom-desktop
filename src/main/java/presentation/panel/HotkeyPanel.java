@@ -79,7 +79,7 @@ public class HotkeyPanel extends VBox implements HotkeyView, DataReadyListener {
     public void setAddButton(Button addButton) {
         this.addButton = addButton;
         this.addButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            presenter.addHotkey("", "");
+            presenter.addHotkey(mobileSpinner.getValue(), desktopSpinner.getValue());
         });
     }
 

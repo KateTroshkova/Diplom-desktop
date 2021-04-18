@@ -51,6 +51,7 @@ public class HotkeyPresenter extends EventListener {
                                     }
                                 },
                                 (error) -> {
+                                    System.out.println(error);
                                 }
                         )
         );
@@ -91,6 +92,7 @@ public class HotkeyPresenter extends EventListener {
                                 () -> {
                                 },
                                 (error) -> {
+                                    System.out.println(error);
                                 }
                         )
         );

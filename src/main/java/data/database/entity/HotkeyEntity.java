@@ -13,9 +13,9 @@ public class HotkeyEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "bond_id", updatable = false, nullable = false)
     private int id;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private MobileAction mobileAction;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private DesktopAction desktopAction;
 
     public HotkeyEntity() {

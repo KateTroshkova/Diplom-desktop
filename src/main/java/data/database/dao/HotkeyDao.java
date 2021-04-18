@@ -9,13 +9,7 @@ import java.util.List;
 
 public class HotkeyDao {
 
-    private DesktopActionDao desktopDao;
-    private MobileActionDao mobileDao;
-
-    public HotkeyDao(){
-        desktopDao = new DesktopActionDao();
-        mobileDao = new MobileActionDao();
-    }
+    public HotkeyDao(){ }
 
     public List<HotkeyEntity> readAll(){
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
