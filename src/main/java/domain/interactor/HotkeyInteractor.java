@@ -12,19 +12,27 @@ public class HotkeyInteractor {
 
     private DatabaseRepositoryApi database;
 
-    public HotkeyInteractor(){
+    public HotkeyInteractor() {
         database = new DatabaseRepository();
     }
 
-    public Single<List<Hotkey>> readAllHotkeys(){
+    public Single<List<Hotkey>> readAllHotkeys() {
         return database.readAllHotkeys();
     }
 
-    public Completable saveHotkey(Hotkey hotkey){
+    public Completable saveHotkey(Hotkey hotkey) {
         return database.saveHotkey(hotkey);
     }
 
-    public Completable removeHotkey(Hotkey hotkey){
+    public Completable removeHotkey(Hotkey hotkey) {
         return database.removeHotkey(hotkey);
+    }
+
+    public Single<List<String>> readMobileActions() {
+        return database.readMobileActions();
+    }
+
+    public Single<List<String>> readDesktopActions() {
+        return database.readDesktopActions();
     }
 }

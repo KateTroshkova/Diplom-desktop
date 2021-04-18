@@ -33,11 +33,13 @@ public class CustomApplication extends Application implements SceneChangeListene
         primaryStage.setScene(main);
         primaryStage.show();
         main.setSceneChangeListener(this);
+        hotkey.setSceneChangeListener(this);
     }
 
     @Override
     public void onOpenDialog() {
         primaryStage.setScene(hotkey);
+        hotkey.prepareData();
     }
 
     @Override

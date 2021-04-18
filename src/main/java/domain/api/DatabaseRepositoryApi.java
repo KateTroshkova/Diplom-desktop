@@ -13,4 +13,8 @@ public interface DatabaseRepositoryApi {
     Completable saveHotkey(Hotkey hotkey);
 
     Completable removeHotkey(Hotkey hotkey);
+
+    Single<List<String>> readMobileActions();
+
+    Single<List<String>> readDesktopActions();
 }
