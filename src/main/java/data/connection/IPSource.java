@@ -8,6 +8,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -27,6 +28,7 @@ public class IPSource extends ConnectionSource {
     public void connect() {
         try {
             setUPWirelessConnection(phoneIP);
+            findDevices();
             String mobilePath = FileUtils.baseMobilePath + "/mobile_info.txt";
             String pcPath = FileUtils.baseDesktopPath;
             prepareFileDirectory();
@@ -36,7 +38,7 @@ public class IPSource extends ConnectionSource {
                     .subscribe(
                             (time) -> {
                                 try {
-                                    int result = adb.executeCommand("adb pull " + mobilePath + " " + pcPath);
+                                    int result = adb.executeCommand("adb " + getCurrentDevice() + " pull " + mobilePath + " " + pcPath);
                                     if (result == 0) {
                                         isConnect = true;
                                     } else {
@@ -68,5 +70,17 @@ public class IPSource extends ConnectionSource {
         result = adb.executeCommand("adb connect " + phoneIP);
         if (result != 0) throw new IOException();
         adb.executeCommand("adb devices");
+    }
+
+    private void findDevices() {
+        try {
+            String result = adb.executeCommandForResult("adb devices");
+            devices.clear();
+            String[] serialNumbers = result.split(" ");
+            Collections.addAll(devices, serialNumbers);
+            currentDeviceIndex = 0;
+        } catch (InterruptedException | IOException e) {
+            e.printStackTrace();
+        }
     }
 }

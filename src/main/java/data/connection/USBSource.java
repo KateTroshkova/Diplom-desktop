@@ -8,6 +8,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
 public class USBSource extends ConnectionSource {
@@ -22,6 +23,7 @@ public class USBSource extends ConnectionSource {
 
     @Override
     public void connect() {
+        findDevices();
         String mobilePath = FileUtils.baseMobilePath + "/mobile_info.txt";
         String pcPath = FileUtils.baseDesktopPath;
         prepareFileDirectory();
@@ -31,7 +33,7 @@ public class USBSource extends ConnectionSource {
                 .subscribe(
                         (time) -> {
                             try {
-                                int result = adb.executeCommand("adb pull " + mobilePath + " " + pcPath);
+                                int result = adb.executeCommand("adb " + getCurrentDevice() + " pull " + mobilePath + " " + pcPath);
                                 if (result == 0) {
                                     isConnect = true;
                                 } else {
@@ -51,5 +53,22 @@ public class USBSource extends ConnectionSource {
         connection.dispose();
         isConnect = false;
         deleteTempFiles();
+    }
+
+    @Override
+    public boolean isConnect(){
+        return isConnect;
+    }
+
+    private void findDevices() {
+        try {
+            String result = adb.executeCommandForResult("adb devices");
+            devices.clear();
+            String[] serialNumbers = result.split(" ");
+            Collections.addAll(devices, serialNumbers);
+            currentDeviceIndex = 0;
+        } catch (InterruptedException | IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -43,15 +43,15 @@ public class MobileRepository implements MobileRepositoryApi {
             if (currentIndex == 20) {
                 currentIndex = 0;
             }
-            String mobilePath = FileUtils.baseMobilePath+"/screenshot" + currentIndex + ".jpg";
+            String mobilePath = FileUtils.baseMobilePath + "/screenshot" + currentIndex + ".jpg";
             String pcPath = FileUtils.baseDesktopPath;
             File root = new File(pcPath);
-            if (!root.exists()){
+            if (!root.exists()) {
                 root.mkdirs();
             }
             try {
-                adb.executeCommand("adb pull " + mobilePath + " " + pcPath);
-                File file = new File(pcPath+"\\screenshot" + currentIndex + ".jpg");
+                adb.executeCommand("adb " + connection.getCurrentDevice() + " pull " + mobilePath + " " + pcPath);
+                File file = new File(pcPath + "\\screenshot" + currentIndex + ".jpg");
                 Image image = new Image(file.toURI().toString());
                 return new Screenshot(image, (int) image.getWidth(), (int) image.getHeight(), "", 0);
             } catch (InterruptedException | IOException e) {
@@ -73,41 +73,41 @@ public class MobileRepository implements MobileRepositoryApi {
 
     private String prepareCommand(Event event) {
         if (event instanceof BackEvent) {
-            return "adb shell input keyevent KEYCODE_BACK";
+            return "adb shell " + connection.getCurrentDevice() + " input keyevent KEYCODE_BACK";
         }
         if (event instanceof ClickEvent) {
-            return "adb shell input tap " + ((ClickEvent) event).getX() + " " + ((ClickEvent) event).getY();
+            return "adb shell " + connection.getCurrentDevice() + " input tap " + ((ClickEvent) event).getX() + " " + ((ClickEvent) event).getY();
         }
         if (event instanceof HomeEvent) {
-            return "adb shell input keyevent KEYCODE_HOME";
+            return "adb shell " + connection.getCurrentDevice() + " input keyevent KEYCODE_HOME";
         }
         if (event instanceof LockEvent) {
-            return "adb shell input keyevent KEYCODE_POWER";
+            return "adb shell " + connection.getCurrentDevice() + " input keyevent KEYCODE_POWER";
         }
         if (event instanceof LongClickEvent) {
-            return "adb shell input tap --longpress " + ((LongClickEvent) event).getX() + " " + ((LongClickEvent) event).getY();
+            return "adb shell " + connection.getCurrentDevice() + " input tap --longpress " + ((LongClickEvent) event).getX() + " " + ((LongClickEvent) event).getY();
         }
         if (event instanceof RotateEvent) {
-            return "adb shell settings put system accelerometer_rotation 0\n adb shell settings put system user_rotation " + ((RotateEvent) event).getDegree();
+            return "adb shell " + connection.getCurrentDevice() + " settings put system accelerometer_rotation 0\n adb shell settings put system user_rotation " + ((RotateEvent) event).getDegree();
         }
         if (event instanceof SwipeEvent) {
             double fromX = ((SwipeEvent) event).getFromX();
             double fromY = ((SwipeEvent) event).getFromY();
             double toX = ((SwipeEvent) event).getToX();
             double toY = ((SwipeEvent) event).getToY();
-            return "adb shell input swipe " + fromX + " " + fromY + " " + toX + " " + toY;
+            return "adb shell " + connection.getCurrentDevice() + " input swipe " + fromX + " " + fromY + " " + toX + " " + toY;
         }
         if (event instanceof VolumeEvent) {
             if (((VolumeEvent) event).isOn()) {
-                return "adb shell input keyevent KEYCODE_VOLUME_UP";
+                return "adb shell " + connection.getCurrentDevice() + " input keyevent KEYCODE_VOLUME_UP";
             } else {
-                return "adb shell input keyevent KEYCODE_VOLUME_DOWN";
+                return "adb shell " + connection.getCurrentDevice() + " input keyevent KEYCODE_VOLUME_DOWN";
             }
         }
         return "";
     }
 
-    private void lateinitConnection(){
+    private void lateinitConnection() {
         factory = ConnectionSourceFactory.getLastInstance();
         connection = factory.getConnection();
     }
