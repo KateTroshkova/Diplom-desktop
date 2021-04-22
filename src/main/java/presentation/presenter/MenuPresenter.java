@@ -9,6 +9,8 @@ import presentation.panel.MenuApi;
 
 public class MenuPresenter extends EventListener {
 
+    private static MenuPresenter instance;
+
     private EventInteractor eventInteractor;
     private ConnectionInteractor connectionInteractor;
     private MenuApi menuApi;
@@ -16,12 +18,19 @@ public class MenuPresenter extends EventListener {
     private int currentRotation;
     private boolean isLocked;
 
-    public MenuPresenter() {
+    public static MenuPresenter getInstance(){
+        if (instance == null){
+            instance = new MenuPresenter();
+        }
+        return instance;
+    }
+
+    private MenuPresenter() {
         connectionInteractor = new ConnectionInteractor();
         eventInteractor = new EventInteractor();
     }
 
-    public MenuPresenter(MenuApi menuApi) {
+    private MenuPresenter(MenuApi menuApi) {
         this();
         setMenuApi(menuApi);
     }
@@ -62,6 +71,14 @@ public class MenuPresenter extends EventListener {
 
     public void home() {
         eventInteractor.sendEvent(new HomeEvent());
+    }
+
+    public void next(){
+        connectionInteractor.checkNext();
+    }
+
+    public void prev(){
+        connectionInteractor.checkPrev();
     }
 
     public MenuApi getMenuApi() {

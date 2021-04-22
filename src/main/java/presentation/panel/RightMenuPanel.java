@@ -20,7 +20,8 @@ public class RightMenuPanel extends VBox implements MenuApi{
     private MenuPresenter presenter;
 
     public RightMenuPanel(){
-        presenter = new MenuPresenter(this);
+        presenter = MenuPresenter.getInstance();
+        presenter.setMenuApi(this);
     }
 
     public void setHotkeyButton(Button hotkeyButton) {

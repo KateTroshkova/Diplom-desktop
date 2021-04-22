@@ -20,7 +20,7 @@ public class LeftMenuPanel extends VBox {
     private HotkeyPresenter hotkeyPresenter;
 
     public LeftMenuPanel(){
-        menuPresenter = new MenuPresenter();
+        menuPresenter = MenuPresenter.getInstance();
         hotkeyPresenter = new HotkeyPresenter();
         this.setOnKeyPressed((event)->{
             hotkeyPresenter.handleEvent(event);

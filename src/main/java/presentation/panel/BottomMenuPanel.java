@@ -11,10 +11,14 @@ public class BottomMenuPanel extends HBox {
 
     private ImageView homeButton;
 
+    private ImageView nextButton;
+
+    private ImageView prevButton;
+
     private MenuPresenter presenter;
 
     public BottomMenuPanel(){
-        presenter = new MenuPresenter();
+        presenter = MenuPresenter.getInstance();
     }
 
     public void setBackButton(ImageView backButton) {
@@ -28,6 +32,20 @@ public class BottomMenuPanel extends HBox {
         this.homeButton = homeButton;
         homeButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             presenter.home();
+        });
+    }
+
+    public void setNextButton(ImageView nextButton) {
+        this.nextButton = nextButton;
+        this.nextButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event->{
+            presenter.next();
+        });
+    }
+
+    public void setPrevButton(ImageView prevButton) {
+        this.prevButton = prevButton;
+        this.prevButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event->{
+            presenter.prev();
         });
     }
 }

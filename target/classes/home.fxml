@@ -75,7 +75,7 @@
     <center>
         <BorderPane>
             <left>
-                <ImageView fitHeight="32" fitWidth="32" pickOnBounds="true"
+                <ImageView fx:id="prevDeviceButton" fitHeight="32" fitWidth="32" pickOnBounds="true"
                            preserveRatio="true">
                     <image>
                         <Image url="@icons/back.png"/>
@@ -86,7 +86,7 @@
                 </ImageView>
             </left>
             <right>
-                <ImageView fitHeight="32" fitWidth="32" pickOnBounds="true"
+                <ImageView fx:id="nextDeviceButton" fitHeight="32" fitWidth="32" pickOnBounds="true"
                            preserveRatio="true" rotate="180">
                     <image>
                         <Image url="@icons/back.png"/>

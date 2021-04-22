@@ -21,4 +21,18 @@ public class ConnectionRepository implements ConnectionRepositoryApi {
     public void disconnect() {
         connection.disconnect();
     }
+
+    @Override
+    public void checkNext() {
+        if (connection != null) {
+            connection.nextDevice();
+        }
+    }
+
+    @Override
+    public void checkPrev() {
+        if (connection != null) {
+            connection.prevDevice();
+        }
+    }
 }

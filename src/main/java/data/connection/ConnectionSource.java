@@ -20,6 +20,20 @@ public abstract class ConnectionSource {
         return isConnect;
     }
 
+    public void nextDevice() {
+        currentDeviceIndex++;
+        if (currentDeviceIndex >= devices.size()) {
+            currentDeviceIndex = 0;
+        }
+    }
+
+    public void prevDevice() {
+        currentDeviceIndex--;
+        if (currentDeviceIndex < 0) {
+            currentDeviceIndex = devices.size() - 1;
+        }
+    }
+
     public String getCurrentDevice() {
         return "-s " + devices.get(currentDeviceIndex);
     }

@@ -18,4 +18,12 @@ public class ConnectionInteractor {
     public void disconnect(){
         repository.disconnect();
     }
+
+    public void checkNext(){
+        repository.checkNext();
+    }
+
+    public void checkPrev(){
+        repository.checkPrev();
+    }
 }
