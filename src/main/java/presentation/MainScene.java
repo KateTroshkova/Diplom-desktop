@@ -63,13 +63,13 @@ public class MainScene extends Scene implements SceneChangeListener{
     public Button sendButton;
 
     @FXML
-    public Button wifiButton;
-
-    @FXML
     public Button ipButton;
 
     @FXML
     public TextField ipField;
+
+    @FXML
+    public Button nextButton;
 
     private static SceneChangeListener sceneChangeListener;
 
@@ -86,7 +86,7 @@ public class MainScene extends Scene implements SceneChangeListener{
         sendButton.setText(res.getString("label.send"));
         usbButton.setText(res.getString("text.USB"));
         ipButton.setText(res.getString("text.IP"));
-        wifiButton.setText(res.getString("text.WIFI"));
+        nextButton.setText(res.getString("text.next"));
         leftMenu.setLockButton(lockButton);
         leftMenu.setMuteButton(muteButton);
         leftMenu.setRotateButton(rotateButton);
@@ -98,6 +98,7 @@ public class MainScene extends Scene implements SceneChangeListener{
         rightMenu.setUsbConnectionButton(usbButton);
         rightMenu.setIPConnectionButton(ipButton);
         rightMenu.setIpField(ipField);
+        rightMenu.setNextButton(nextButton);
         rightMenu.setSceneChangeListener(this);
     }
 

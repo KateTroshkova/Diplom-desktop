@@ -7,19 +7,20 @@ import javafx.scene.layout.VBox;
 import presentation.SceneChangeListener;
 import presentation.presenter.MenuPresenter;
 
-public class RightMenuPanel extends VBox {
+public class RightMenuPanel extends VBox implements MenuApi{
 
     private Button hotkeyButton;
     private Button usbConnectionButton;
     private Button ipConnectionButton;
     private Button disconnectButton;
     private TextField ipField;
+    private Button nextButton;
 
     private SceneChangeListener sceneChangeListener;
     private MenuPresenter presenter;
 
     public RightMenuPanel(){
-        presenter = new MenuPresenter();
+        presenter = new MenuPresenter(this);
     }
 
     public void setHotkeyButton(Button hotkeyButton) {
@@ -39,9 +40,7 @@ public class RightMenuPanel extends VBox {
     public void setIPConnectionButton(Button ipConnectionButton) {
         this.ipConnectionButton = ipConnectionButton;
         this.ipConnectionButton.setOnAction(e -> {
-            ConnectionSettings settings = new ConnectionSettings();
-            settings.setPhoneIP(ipField.getText());
-            presenter.connect("IP", settings);
+            presenter.enterWifi();
         });
     }
 
@@ -56,7 +55,22 @@ public class RightMenuPanel extends VBox {
         this.ipField = ipField;
     }
 
+    public void setNextButton(Button nextButton) {
+        this.nextButton = nextButton;
+        this.nextButton.setOnAction(e->{
+            ConnectionSettings settings = new ConnectionSettings();
+            settings.setPhoneIP(ipField.getText());
+            presenter.connect("IP", settings);
+        });
+    }
+
     public void setSceneChangeListener(SceneChangeListener sceneChangeListener) {
         this.sceneChangeListener = sceneChangeListener;
+    }
+
+    @Override
+    public void showWifiInputView(boolean show) {
+        this.ipField.setVisible(show);
+        this.nextButton.setVisible(show);
     }
 }
