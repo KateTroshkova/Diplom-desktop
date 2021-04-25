@@ -5,9 +5,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import presentation.SceneChangeListener;
+import presentation.presenter.HotkeyPresenter;
 import presentation.presenter.MenuPresenter;
 
-public class RightMenuPanel extends VBox implements MenuApi{
+public class RightMenuPanel extends VBox implements MenuApi {
 
     private Button hotkeyButton;
     private Button usbConnectionButton;
@@ -18,10 +19,16 @@ public class RightMenuPanel extends VBox implements MenuApi{
 
     private SceneChangeListener sceneChangeListener;
     private MenuPresenter presenter;
+    private HotkeyPresenter hotkeyPresenter;
 
-    public RightMenuPanel(){
+    public RightMenuPanel() {
         presenter = MenuPresenter.getInstance();
         presenter.setMenuApi(this);
+        hotkeyPresenter = new HotkeyPresenter();
+        this.setOnKeyPressed((event) -> {
+            hotkeyPresenter.handleEvent(event);
+        });
+        hotkeyPresenter.loadHotkeys();
     }
 
     public void setHotkeyButton(Button hotkeyButton) {
@@ -52,13 +59,13 @@ public class RightMenuPanel extends VBox implements MenuApi{
         });
     }
 
-    public void setIpField(TextField ipField){
+    public void setIpField(TextField ipField) {
         this.ipField = ipField;
     }
 
     public void setNextButton(Button nextButton) {
         this.nextButton = nextButton;
-        this.nextButton.setOnAction(e->{
+        this.nextButton.setOnAction(e -> {
             ConnectionSettings settings = new ConnectionSettings();
             settings.setPhoneIP(ipField.getText());
             presenter.connect("IP", settings);

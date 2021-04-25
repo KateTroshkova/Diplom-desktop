@@ -32,7 +32,7 @@ public class USBSource extends ConnectionSource {
                 .subscribe(
                         (time) -> {
                             try {
-                                int result = adb.executeCommand("adb " + getCurrentDevice() + " pull " + mobilePath + " " + pcPath);
+                                int result = adb.executeCommand("adb " + getCurrentDevice(true) + " pull " + mobilePath + " " + pcPath);
                                 if (result == 0) {
                                     isConnect = true;
                                 } else {

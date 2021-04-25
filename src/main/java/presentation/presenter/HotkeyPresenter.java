@@ -61,7 +61,9 @@ public class HotkeyPresenter extends EventListener {
                         .subscribeOn(Schedulers.io())
                         .subscribe(
                                 (actions) -> {
-                                    view.prepareMobileActions(FXCollections.observableArrayList(actions));
+                                    if (view!=null) {
+                                        view.prepareMobileActions(FXCollections.observableArrayList(actions));
+                                    }
                                 },
                                 (error) -> {
 
@@ -74,7 +76,9 @@ public class HotkeyPresenter extends EventListener {
                         .subscribeOn(Schedulers.io())
                         .subscribe(
                                 (actions) -> {
-                                    view.prepareDesktopActions(FXCollections.observableArrayList(actions));
+                                    if (view!=null) {
+                                        view.prepareDesktopActions(FXCollections.observableArrayList(actions));
+                                    }
                                 },
                                 (error) -> {
 
@@ -156,19 +160,19 @@ public class HotkeyPresenter extends EventListener {
             return;
         }
         if (input.getMobileAction().equals("SWIPE_UP")) {
-            eventInteractor.sendEvent(new SwipeEvent(100, 100, 100, 0));
+            eventInteractor.sendEvent(new SwipeEvent(500, 500, 500, 0));
             return;
         }
         if (input.getMobileAction().equals("SWIPE_DOWN")) {
-            eventInteractor.sendEvent(new SwipeEvent(100, 0, 100, 100));
+            eventInteractor.sendEvent(new SwipeEvent(500, 0, 500, 500));
             return;
         }
         if (input.getMobileAction().equals("SWIPE_RIGHT")) {
-            eventInteractor.sendEvent(new SwipeEvent(0, 100, 100, 0));
+            eventInteractor.sendEvent(new SwipeEvent(0, 500, 500, 500));
             return;
         }
         if (input.getMobileAction().equals("SWIPE_LEFT")) {
-            eventInteractor.sendEvent(new SwipeEvent(100, 100, 0, 100));
+            eventInteractor.sendEvent(new SwipeEvent(500, 500, 0, 500));
         }
     }
 }

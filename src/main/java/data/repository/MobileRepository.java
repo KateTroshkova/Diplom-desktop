@@ -2,6 +2,7 @@ package data.repository;
 
 import data.connection.ConnectionSource;
 import data.connection.ConnectionSourceFactory;
+import data.connection.USBSource;
 import domain.api.MobileRepositoryApi;
 import domain.common.ADBHelper;
 import domain.common.FileUtils;
@@ -50,7 +51,7 @@ public class MobileRepository implements MobileRepositoryApi {
                 root.mkdirs();
             }
             try {
-                adb.executeCommand("adb " + connection.getCurrentDevice() + " pull " + mobilePath + " " + pcPath);
+                adb.executeCommand("adb " + connection.getCurrentDevice(connection instanceof USBSource) + " pull " + mobilePath + " " + pcPath);
                 File file = new File(pcPath + "\\screenshot" + currentIndex + ".jpg");
                 Image image = new Image(file.toURI().toString());
                 return new Screenshot(image, (int) image.getWidth(), (int) image.getHeight(), "", 0);
@@ -73,35 +74,35 @@ public class MobileRepository implements MobileRepositoryApi {
 
     private String prepareCommand(Event event) {
         if (event instanceof BackEvent) {
-            return "adb shell " + connection.getCurrentDevice() + " input keyevent KEYCODE_BACK";
+            return "adb " + connection.getCurrentDevice(connection instanceof USBSource) + " shell input keyevent KEYCODE_BACK";
         }
         if (event instanceof ClickEvent) {
-            return "adb shell " + connection.getCurrentDevice() + " input tap " + ((ClickEvent) event).getX() + " " + ((ClickEvent) event).getY();
+            return "adb " + connection.getCurrentDevice(connection instanceof USBSource) + " shell input tap " + ((ClickEvent) event).getX() + " " + ((ClickEvent) event).getY();
         }
         if (event instanceof HomeEvent) {
-            return "adb shell " + connection.getCurrentDevice() + " input keyevent KEYCODE_HOME";
+            return "adb " + connection.getCurrentDevice(connection instanceof USBSource) + " shell input keyevent KEYCODE_HOME";
         }
         if (event instanceof LockEvent) {
-            return "adb shell " + connection.getCurrentDevice() + " input keyevent KEYCODE_POWER";
+            return "adb " + connection.getCurrentDevice(connection instanceof USBSource) + " shell input keyevent KEYCODE_POWER";
         }
         if (event instanceof LongClickEvent) {
-            return "adb shell " + connection.getCurrentDevice() + " input tap --longpress " + ((LongClickEvent) event).getX() + " " + ((LongClickEvent) event).getY();
+            return "adb " + connection.getCurrentDevice(connection instanceof USBSource) + " shell input tap --longpress " + ((LongClickEvent) event).getX() + " " + ((LongClickEvent) event).getY();
         }
         if (event instanceof RotateEvent) {
-            return "adb shell " + connection.getCurrentDevice() + " settings put system accelerometer_rotation 0\n adb shell settings put system user_rotation " + ((RotateEvent) event).getDegree();
+            return "adb " + connection.getCurrentDevice(connection instanceof USBSource) + " shell settings put system accelerometer_rotation 0\n adb shell settings put system user_rotation " + ((RotateEvent) event).getDegree();
         }
         if (event instanceof SwipeEvent) {
             double fromX = ((SwipeEvent) event).getFromX();
             double fromY = ((SwipeEvent) event).getFromY();
             double toX = ((SwipeEvent) event).getToX();
             double toY = ((SwipeEvent) event).getToY();
-            return "adb shell " + connection.getCurrentDevice() + " input swipe " + fromX + " " + fromY + " " + toX + " " + toY;
+            return "adb " + connection.getCurrentDevice(connection instanceof USBSource) + " shell input swipe " + fromX + " " + fromY + " " + toX + " " + toY;
         }
         if (event instanceof VolumeEvent) {
             if (((VolumeEvent) event).isOn()) {
-                return "adb shell " + connection.getCurrentDevice() + " input keyevent KEYCODE_VOLUME_UP";
+                return "adb " + connection.getCurrentDevice(connection instanceof USBSource) + " shell input keyevent KEYCODE_VOLUME_UP";
             } else {
-                return "adb shell " + connection.getCurrentDevice() + " input keyevent KEYCODE_VOLUME_DOWN";
+                return "adb " + connection.getCurrentDevice(connection instanceof USBSource) + " shell input keyevent KEYCODE_VOLUME_DOWN";
             }
         }
         return "";

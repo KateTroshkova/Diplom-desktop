@@ -34,8 +34,12 @@ public abstract class ConnectionSource {
         }
     }
 
-    public String getCurrentDevice() {
-        return "-s " + devices.get(currentDeviceIndex);
+    public String getCurrentDevice(boolean isUSB) {
+        if (isUSB) {
+            return "-s " + devices.get(currentDeviceIndex);
+        } else {
+            return "";
+        }
     }
 
     protected void handleConnectionError() {

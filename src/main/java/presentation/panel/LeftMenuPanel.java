@@ -17,15 +17,9 @@ public class LeftMenuPanel extends VBox {
     private ImageView lockButton;
 
     private MenuPresenter menuPresenter;
-    private HotkeyPresenter hotkeyPresenter;
 
     public LeftMenuPanel(){
         menuPresenter = MenuPresenter.getInstance();
-        hotkeyPresenter = new HotkeyPresenter();
-        this.setOnKeyPressed((event)->{
-            hotkeyPresenter.handleEvent(event);
-        });
-        hotkeyPresenter.loadHotkeys();
     }
 
     public void setRotateButton(ImageView rotateButton) {
