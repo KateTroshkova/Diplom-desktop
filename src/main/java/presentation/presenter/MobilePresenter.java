@@ -5,12 +5,14 @@ import domain.interactor.VideoInteractor;
 import domain.model.DeviceInfo;
 import domain.model.Screenshot;
 import domain.model.events.Event;
+import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import javafx.geometry.Point2D;
 import presentation.common.TouchListener;
 import presentation.view.MobileView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -65,5 +67,14 @@ public class MobilePresenter extends TouchListener {
 
     public void nextGesture(Point2D point) {
         addPoint(point);
+    }
+
+    public void sendFile(File file) {
+        subscriptions.add(
+                Completable.fromAction(() -> {
+                    videoInteractor.sendFile(file);
+                })
+                        .subscribe()
+        );
     }
 }

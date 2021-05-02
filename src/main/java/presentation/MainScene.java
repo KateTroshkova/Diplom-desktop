@@ -111,6 +111,7 @@ public class MainScene extends Scene implements SceneChangeListener{
         rightMenu.setIPConnectionButton(ipButton);
         rightMenu.setIpField(ipField);
         rightMenu.setNextButton(nextButton);
+        mobilePanel.setSendButton(sendButton);
         rightMenu.setSceneChangeListener(this);
         mobilePanel.setInfoLabel(infoLabel);
     }

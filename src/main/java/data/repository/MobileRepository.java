@@ -65,11 +65,20 @@ public class MobileRepository implements MobileRepositoryApi {
 
     @Override
     public void sendFile(File file) {
-
+        lateinitConnection();
+        if (connection.isConnect()) {
+            String mobilePath = FileUtils.baseMobilePath + "/"+file.getName();
+            try {
+                adb.executeCommand("adb " + connection.getCurrentDevice(connection instanceof USBSource) + " push " + file.getAbsolutePath() + " " + mobilePath);
+            } catch (InterruptedException | IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
     public DeviceInfo receiveFile() {
+        lateinitConnection();
         if (connection.isConnect()) {
             String mobilePath = FileUtils.baseMobilePath + "/mobile_info.txt";
             String pcPath = FileUtils.baseDesktopPath;

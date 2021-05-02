@@ -53,7 +53,7 @@
     <right>
         <RightMenuPanel fx:id="rightMenu" prefHeight="100.0" prefWidth="220.0" BorderPane.alignment="CENTER">
             <children>
-                <Label text="Model:...\nBrand:...\nMAC:..."/>
+                <Label fx:id="infoLabel"/>
                 <HBox prefWidth="220.0" BorderPane.alignment="CENTER">
                     <children>
                         <Button fx:id="usbButton" prefWidth="110" mnemonicParsing="false" text="USB"/>
