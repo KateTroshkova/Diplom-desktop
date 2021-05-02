@@ -6,12 +6,13 @@ import data.connection.USBSource;
 import domain.api.MobileRepositoryApi;
 import domain.common.ADBHelper;
 import domain.common.FileUtils;
+import domain.model.DeviceInfo;
 import domain.model.Screenshot;
 import domain.model.events.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 public class MobileRepository implements MobileRepositoryApi {
 
@@ -68,7 +69,39 @@ public class MobileRepository implements MobileRepositoryApi {
     }
 
     @Override
-    public File receiveFile() {
+    public DeviceInfo receiveFile() {
+        if (connection.isConnect()) {
+            String mobilePath = FileUtils.baseMobilePath + "/mobile_info.txt";
+            String pcPath = FileUtils.baseDesktopPath;
+            File root = new File(pcPath);
+            if (!root.exists()) {
+                root.mkdirs();
+            }
+            try {
+                adb.executeCommand("adb " + connection.getCurrentDevice(connection instanceof USBSource) + " pull " + mobilePath + " " + pcPath);
+                File file = new File(pcPath + "\\mobile_info.txt");
+                StringBuilder resultStringBuilder = new StringBuilder();
+                try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        resultStringBuilder.append(line).append("\n");
+                    }
+                }
+                DeviceInfo info = new DeviceInfo(resultStringBuilder.toString());
+                if (info.getFileToSend() != null) {
+                    int fileNameStart = info.getFileToSend().lastIndexOf("/");
+                    int fileNameEnd = info.getFileToSend().length() - 1;
+                    String fileName = info.getFileToSend().substring(fileNameStart, fileNameEnd);
+                    if (!(new File(pcPath + "\\" + fileName).exists())) {
+                        adb.executeCommand("adb " + connection.getCurrentDevice(connection instanceof USBSource) +
+                                " pull " + info.getFileToSend() + " " + pcPath + "\\" + fileName);
+                    }
+                }
+                return info;
+            } catch (InterruptedException | IOException e) {
+                e.printStackTrace();
+            }
+        }
         return null;
     }
 

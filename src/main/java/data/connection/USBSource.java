@@ -27,7 +27,7 @@ public class USBSource extends ConnectionSource {
         String pcPath = FileUtils.baseDesktopPath;
         prepareFileDirectory();
         connection = Flowable
-                .interval(1, TimeUnit.SECONDS)
+                .interval(2, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                         (time) -> {

@@ -2,6 +2,7 @@ package domain.interactor;
 
 import data.repository.MobileRepository;
 import domain.api.MobileRepositoryApi;
+import domain.model.DeviceInfo;
 import domain.model.Screenshot;
 
 import java.io.File;
@@ -22,7 +23,7 @@ public class VideoInteractor {
         repository.sendFile(file);
     }
 
-    public File receiveFile() {
+    public DeviceInfo receiveFile() {
         return repository.receiveFile();
     }
 }

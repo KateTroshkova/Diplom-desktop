@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -77,6 +78,9 @@ public class MainScene extends Scene implements SceneChangeListener{
     @FXML
     public ImageView nextDeviceButton;
 
+    @FXML
+    public Label infoLabel;
+
     private static SceneChangeListener sceneChangeListener;
 
     public MainScene(){
@@ -108,6 +112,7 @@ public class MainScene extends Scene implements SceneChangeListener{
         rightMenu.setIpField(ipField);
         rightMenu.setNextButton(nextButton);
         rightMenu.setSceneChangeListener(this);
+        mobilePanel.setInfoLabel(infoLabel);
     }
 
     public void setSceneChangeListener(SceneChangeListener sceneChangeListener) {

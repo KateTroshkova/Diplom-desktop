@@ -1,5 +1,6 @@
 package domain.api;
 
+import domain.model.DeviceInfo;
 import domain.model.Screenshot;
 import domain.model.events.Event;
 
@@ -13,5 +14,5 @@ public interface MobileRepositoryApi {
 
     void sendFile(File file);
 
-    File receiveFile();
+    DeviceInfo receiveFile();
 }
