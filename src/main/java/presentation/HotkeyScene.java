@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.Pane;
@@ -16,9 +17,9 @@ public class HotkeyScene extends Scene implements SceneChangeListener {
     @FXML
     private ListView hotkeyList;
     @FXML
-    private Spinner mobileSpinner;
+    private ComboBox mobileSpinner;
     @FXML
-    private Spinner desktopSpinner;
+    private ComboBox desktopSpinner;
     @FXML
     private Button addButton;
     @FXML
@@ -34,8 +35,8 @@ public class HotkeyScene extends Scene implements SceneChangeListener {
     @FXML
     public void initialize() {
         hotkeyContainer.setHotkeyList(hotkeyList);
-        hotkeyContainer.setMobileSpinner(mobileSpinner);
-        hotkeyContainer.setDesktopSpinner(desktopSpinner);
+        hotkeyContainer.setMobileComboBox(mobileSpinner);
+        hotkeyContainer.setDesktopComboBox(desktopSpinner);
         hotkeyContainer.setAddButton(addButton);
         hotkeyContainer.setBackButton(backButton);
         hotkeyContainer.setSceneChangeListener(this);

@@ -3,8 +3,7 @@ package presentation.panel;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.ComboBox;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import presentation.DataReadyListener;
@@ -12,11 +11,13 @@ import presentation.SceneChangeListener;
 import presentation.presenter.HotkeyPresenter;
 import presentation.view.HotkeyView;
 
+import java.util.List;
+
 public class HotkeyPanel extends VBox implements HotkeyView, DataReadyListener {
 
     private ListView<String> hotkeyList;
-    private Spinner<String> mobileSpinner;
-    private Spinner<String> desktopSpinner;
+    private ComboBox<String> mobileComboBox;
+    private ComboBox<String> desktopComboBox;
     private Button addButton;
     private Button backButton;
 
@@ -34,14 +35,17 @@ public class HotkeyPanel extends VBox implements HotkeyView, DataReadyListener {
 
     @Override
     public void prepareMobileActions(ObservableList<String> actions) {
-        SpinnerValueFactory<String> valueFactory = new SpinnerValueFactory.ListSpinnerValueFactory<String>(actions);
-        mobileSpinner.setValueFactory(valueFactory);
+        mobileComboBox.setItems(actions);
     }
 
     @Override
     public void prepareDesktopActions(ObservableList<String> actions) {
-        SpinnerValueFactory<String> valueFactory = new SpinnerValueFactory.ListSpinnerValueFactory<String>(actions);
-        desktopSpinner.setValueFactory(valueFactory);
+        desktopComboBox.setItems(actions);
+    }
+
+    @Override
+    public void update(List<String> hotkeys) {
+        hotkeyList.getItems().clear();
     }
 
     public void prepareData() {
@@ -59,20 +63,20 @@ public class HotkeyPanel extends VBox implements HotkeyView, DataReadyListener {
         });
     }
 
-    public Spinner getMobileSpinner() {
-        return mobileSpinner;
+    public ComboBox getMobileComboBox() {
+        return mobileComboBox;
     }
 
-    public void setMobileSpinner(Spinner mobileSpinner) {
-        this.mobileSpinner = mobileSpinner;
+    public void setMobileComboBox(ComboBox mobileComboBox) {
+        this.mobileComboBox = mobileComboBox;
     }
 
-    public Spinner getDesktopSpinner() {
-        return desktopSpinner;
+    public ComboBox getDesktopComboBox() {
+        return desktopComboBox;
     }
 
-    public void setDesktopSpinner(Spinner desktopSpinner) {
-        this.desktopSpinner = desktopSpinner;
+    public void setDesktopComboBox(ComboBox desktopComboBox) {
+        this.desktopComboBox = desktopComboBox;
     }
 
     public Button getAddButton() {
@@ -82,7 +86,7 @@ public class HotkeyPanel extends VBox implements HotkeyView, DataReadyListener {
     public void setAddButton(Button addButton) {
         this.addButton = addButton;
         this.addButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            presenter.addHotkey(mobileSpinner.getValue(), desktopSpinner.getValue());
+            presenter.addHotkey(mobileComboBox.getValue(), desktopComboBox.getValue());
         });
     }
 

@@ -94,6 +94,10 @@ public class HotkeyPresenter extends EventListener {
                         .subscribeOn(Schedulers.io())
                         .subscribe(
                                 () -> {
+                                    if (view!=null){
+                                        update();
+                                        loadHotkeys();
+                                    }
                                 },
                                 (error) -> {
                                     System.out.println(error);
@@ -111,6 +115,10 @@ public class HotkeyPresenter extends EventListener {
                         .subscribeOn(Schedulers.io())
                         .subscribe(
                                 () -> {
+                                    if (view!=null){
+                                        update();
+                                        loadHotkeys();
+                                    }
                                 },
                                 (error) -> {
                                     System.out.println(error);
@@ -174,5 +182,13 @@ public class HotkeyPresenter extends EventListener {
         if (input.getMobileAction().equals("SWIPE_LEFT")) {
             eventInteractor.sendEvent(new SwipeEvent(500, 500, 0, 500));
         }
+    }
+
+    private void update(){
+        List<String> hotkeysStrings = new ArrayList<>();
+        for(Hotkey hotkey:hotkeys){
+            hotkeysStrings.add(hotkey.toString());
+        }
+        view.update(hotkeysStrings);
     }
 }

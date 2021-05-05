@@ -2,6 +2,7 @@ package presentation;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -24,6 +25,7 @@ public class CustomApplication extends Application implements SceneChangeListene
     public void start(Stage primaryStage) throws IOException {
         this.primaryStage = primaryStage;
         primaryStage.setTitle("Troshkova E.L. AVT-716");
+        primaryStage.getIcons().add(new Image("ic_launcher.png"));
         URL homeUrl = new File("src/main/resources/home.fxml").toURI().toURL();
         URL hotkeyUrl = new File("src/main/resources/dialog_hotkey.fxml").toURI().toURL();
         BorderPane homeRoot = FXMLLoader.load(homeUrl);
