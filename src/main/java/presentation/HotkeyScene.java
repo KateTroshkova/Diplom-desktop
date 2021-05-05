@@ -10,6 +10,9 @@ import javafx.scene.control.Spinner;
 import javafx.scene.layout.Pane;
 import presentation.panel.HotkeyPanel;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 public class HotkeyScene extends Scene implements SceneChangeListener {
 
     @FXML
@@ -34,6 +37,10 @@ public class HotkeyScene extends Scene implements SceneChangeListener {
 
     @FXML
     public void initialize() {
+        Locale current = Locale.getDefault();
+        ResourceBundle res = ResourceBundle.getBundle("i18n.string", current);
+        addButton.setText(res.getString("text.add"));
+        backButton.setText(res.getString("text.back"));
         hotkeyContainer.setHotkeyList(hotkeyList);
         hotkeyContainer.setMobileComboBox(mobileSpinner);
         hotkeyContainer.setDesktopComboBox(desktopSpinner);
