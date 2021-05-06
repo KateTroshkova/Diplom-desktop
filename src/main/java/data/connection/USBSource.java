@@ -2,6 +2,7 @@ package data.connection;
 
 import domain.common.ADBHelper;
 import domain.common.FileUtils;
+import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -51,11 +52,19 @@ public class USBSource extends ConnectionSource {
     public void disconnect() {
         connection.dispose();
         isConnect = false;
-        deleteTempFiles();
+        Disposable deleteProcess = Completable
+                .fromAction(this::deleteTempFiles)
+                .delay(2, TimeUnit.SECONDS)
+                .andThen(Completable.fromAction(this::deleteTempFiles))
+                .subscribeOn(Schedulers.io())
+                .subscribe(
+                        () -> { },
+                        e -> { }
+                );
     }
 
     @Override
-    public boolean isConnect(){
+    public boolean isConnect() {
         return isConnect;
     }
 

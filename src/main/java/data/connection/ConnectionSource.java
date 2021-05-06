@@ -50,10 +50,18 @@ public abstract class ConnectionSource {
     }
 
     protected void deleteTempFiles() {
-        File info = new File(FileUtils.baseDesktopPath + "\\mobile_info.txt");
-        if (info.exists()) {
-            info.delete();
+        deletePhoneInfo();
+        deleteScreenshots();
+    }
+
+    protected void prepareFileDirectory() {
+        File root = new File(FileUtils.baseDesktopPath);
+        if (!root.exists()) {
+            root.mkdirs();
         }
+    }
+
+    protected void deleteScreenshots(){
         for (int i = 0; i < 20; i++) {
             File screenshot = new File(FileUtils.baseDesktopPath + "\\screenshot" + i + ".jpg");
             if (screenshot.exists()) {
@@ -62,10 +70,10 @@ public abstract class ConnectionSource {
         }
     }
 
-    protected void prepareFileDirectory() {
-        File root = new File(FileUtils.baseDesktopPath);
-        if (!root.exists()) {
-            root.mkdirs();
+    private void deletePhoneInfo(){
+        File info = new File(FileUtils.baseDesktopPath + "\\mobile_info.txt");
+        if (info.exists()) {
+            info.delete();
         }
     }
 }
