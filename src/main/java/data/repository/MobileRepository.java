@@ -131,7 +131,8 @@ public class MobileRepository implements MobileRepositoryApi {
             return "adb " + connection.getCurrentDevice(connection instanceof USBSource) + " shell input tap --longpress " + ((LongClickEvent) event).getX() + " " + ((LongClickEvent) event).getY();
         }
         if (event instanceof RotateEvent) {
-            return "adb " + connection.getCurrentDevice(connection instanceof USBSource) + " shell settings put system accelerometer_rotation 0\n adb shell settings put system user_rotation " + ((RotateEvent) event).getDegree();
+            return "adb " + connection.getCurrentDevice(connection instanceof USBSource) + " shell settings put system accelerometer_rotation 0\n " +
+                    "adb "+connection.getCurrentDevice(connection instanceof USBSource)+" shell settings put system user_rotation " + ((RotateEvent) event).getDegree();
         }
         if (event instanceof SwipeEvent) {
             double fromX = ((SwipeEvent) event).getFromX();

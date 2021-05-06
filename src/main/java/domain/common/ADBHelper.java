@@ -12,7 +12,16 @@ import java.util.regex.Pattern;
 public class ADBHelper {
 
     public int executeCommand(String command) throws InterruptedException, IOException {
-        Process process = Runtime.getRuntime().exec(command);
+        Process process = null;
+        if (command.contains("\n")){
+            String[] commands = command.split("\n");
+            for(String nextCommand:commands){
+                process = Runtime.getRuntime().exec(nextCommand);
+            }
+        }
+        else {
+            process = Runtime.getRuntime().exec(command);
+        }
         StreamGobbler streamGobbler = new StreamGobbler(process.getInputStream(), System.out::println);
         Executors.newSingleThreadExecutor().submit(streamGobbler);
         return process.waitFor();
