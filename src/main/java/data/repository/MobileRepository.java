@@ -80,14 +80,14 @@ public class MobileRepository implements MobileRepositoryApi {
     public DeviceInfo receiveFile() {
         lateinitConnection();
         if (connection.isConnect()) {
-            String mobilePath = FileUtils.baseMobilePath + "/mobile_info.txt";
+            //String mobilePath = FileUtils.baseMobilePath + "/mobile_info.txt";
             String pcPath = FileUtils.baseDesktopPath;
             File root = new File(pcPath);
             if (!root.exists()) {
                 root.mkdirs();
             }
             try {
-                adb.executeCommand("adb " + connection.getCurrentDevice(connection instanceof USBSource) + " pull " + mobilePath + " " + pcPath);
+                //adb.executeCommand("adb " + connection.getCurrentDevice(connection instanceof USBSource) + " pull " + mobilePath + " " + pcPath);
                 File file = new File(pcPath + "\\mobile_info.txt");
                 StringBuilder resultStringBuilder = new StringBuilder();
                 try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
