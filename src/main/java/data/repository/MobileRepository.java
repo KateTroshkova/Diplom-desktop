@@ -45,15 +45,16 @@ public class MobileRepository implements MobileRepositoryApi {
             if (currentIndex == 20) {
                 currentIndex = 0;
             }
-            String mobilePath = FileUtils.baseMobilePath + "/screenshot" + currentIndex + ".jpg";
+            String mobilePath = FileUtils.baseMobilePath + "/screenshot" + currentIndex + ".png";
             String pcPath = FileUtils.baseDesktopPath;
             File root = new File(pcPath);
             if (!root.exists()) {
                 root.mkdirs();
             }
             try {
+                adb.executeCommand("adb " + connection.getCurrentDevice(connection instanceof USBSource) + " shell screencap "+mobilePath);
                 adb.executeCommand("adb " + connection.getCurrentDevice(connection instanceof USBSource) + " pull " + mobilePath + " " + pcPath);
-                File file = new File(pcPath + "\\screenshot" + currentIndex + ".jpg");
+                File file = new File(pcPath + "\\screenshot" + currentIndex + ".png");
                 Image image = new Image(file.toURI().toString());
                 return new Screenshot(image, (int) image.getWidth(), (int) image.getHeight(), "", 0);
             } catch (InterruptedException | IOException e) {
@@ -67,7 +68,7 @@ public class MobileRepository implements MobileRepositoryApi {
     public void sendFile(File file) {
         lateinitConnection();
         if (connection.isConnect()) {
-            String mobilePath = FileUtils.baseMobilePath + "/"+file.getName();
+            String mobilePath = FileUtils.baseMobilePath + "/" + file.getName();
             try {
                 adb.executeCommand("adb " + connection.getCurrentDevice(connection instanceof USBSource) + " push " + file.getAbsolutePath() + " " + mobilePath);
             } catch (InterruptedException | IOException e) {
@@ -132,7 +133,7 @@ public class MobileRepository implements MobileRepositoryApi {
         }
         if (event instanceof RotateEvent) {
             return "adb " + connection.getCurrentDevice(connection instanceof USBSource) + " shell settings put system accelerometer_rotation 0\n " +
-                    "adb "+connection.getCurrentDevice(connection instanceof USBSource)+" shell settings put system user_rotation " + ((RotateEvent) event).getDegree();
+                    "adb " + connection.getCurrentDevice(connection instanceof USBSource) + " shell settings put system user_rotation " + ((RotateEvent) event).getDegree();
         }
         if (event instanceof SwipeEvent) {
             double fromX = ((SwipeEvent) event).getFromX();

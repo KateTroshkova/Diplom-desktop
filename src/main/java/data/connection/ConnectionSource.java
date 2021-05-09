@@ -63,7 +63,7 @@ public abstract class ConnectionSource {
 
     protected void deleteScreenshots(){
         for (int i = 0; i < 20; i++) {
-            File screenshot = new File(FileUtils.baseDesktopPath + "\\screenshot" + i + ".jpg");
+            File screenshot = new File(FileUtils.baseDesktopPath + "\\screenshot" + i + ".png");
             if (screenshot.exists()) {
                 screenshot.delete();
             }
