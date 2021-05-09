@@ -4,11 +4,14 @@ import data.connection.ConnectionSettings;
 import data.repository.ConnectionRepository;
 import domain.api.ConnectionRepositoryApi;
 
+import javax.inject.Inject;
+
 public class ConnectionInteractor {
     private ConnectionRepositoryApi repository;
 
-    public ConnectionInteractor(){
-        repository = new ConnectionRepository();
+    @Inject
+    public ConnectionInteractor(ConnectionRepositoryApi repository){
+        this.repository = repository;
     }
 
     public void connect(String type, ConnectionSettings settings){

@@ -7,6 +7,8 @@ import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+import presentation.di.DaggerInjector;
+import presentation.di.Injector;
 
 import java.io.*;
 import java.util.Collections;
@@ -19,7 +21,8 @@ public class USBSource extends ConnectionSource {
     private final ADBHelper adb;
 
     public USBSource() {
-        adb = new ADBHelper();
+        Injector injector = DaggerInjector.create();
+        adb = injector.injectADBHelper();
     }
 
     @Override

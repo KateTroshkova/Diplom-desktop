@@ -5,14 +5,18 @@ import domain.interactor.ConnectionInteractor;
 import domain.interactor.EventInteractor;
 import domain.model.events.*;
 import presentation.common.EventListener;
-import presentation.panel.MenuApi;
+import presentation.view.MenuApi;
+
+import javax.inject.Inject;
 
 public class MenuPresenter extends EventListener {
 
     private static MenuPresenter instance;
 
-    private EventInteractor eventInteractor;
-    private ConnectionInteractor connectionInteractor;
+    @Inject
+    EventInteractor eventInteractor;
+    @Inject
+    ConnectionInteractor connectionInteractor;
     private MenuApi menuApi;
 
     private int currentRotation;
@@ -25,10 +29,7 @@ public class MenuPresenter extends EventListener {
         return instance;
     }
 
-    private MenuPresenter() {
-        connectionInteractor = new ConnectionInteractor();
-        eventInteractor = new EventInteractor();
-    }
+    private MenuPresenter() { }
 
     private MenuPresenter(MenuApi menuApi) {
         this();

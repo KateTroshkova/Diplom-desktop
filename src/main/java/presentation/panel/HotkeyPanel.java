@@ -8,6 +8,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import presentation.DataReadyListener;
 import presentation.SceneChangeListener;
+import presentation.di.DaggerInjector;
+import presentation.di.Injector;
 import presentation.presenter.HotkeyPresenter;
 import presentation.view.HotkeyView;
 
@@ -25,7 +27,9 @@ public class HotkeyPanel extends VBox implements HotkeyView, DataReadyListener {
     private SceneChangeListener sceneChangeListener;
 
     public HotkeyPanel() {
+        Injector injector = DaggerInjector.create();
         presenter = new HotkeyPresenter(this);
+        injector.injectHotkeyPresenter(presenter);
     }
 
     @Override

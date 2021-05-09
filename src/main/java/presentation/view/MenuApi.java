@@ -1,4 +1,4 @@
-package presentation.panel;
+package presentation.view;
 
 public interface MenuApi {
 

@@ -6,12 +6,18 @@ import domain.model.events.LongClickEvent;
 import domain.model.events.SwipeEvent;
 import javafx.geometry.Point2D;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 
 public class GestureDetector {
 
     private static final int CLICK_LENGTH = 8;
     private static final int MOVEMENT_LENGTH = 16;
+
+    @Inject
+    public GestureDetector(){
+
+    }
 
     public Event recogniseGesture(ArrayList<Point2D> points) {
         if (isEmpty(points)) return null;

@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import javax.inject.Inject;
 import java.util.List;
 
 public class MobileActionDao {
@@ -26,6 +27,7 @@ public class MobileActionDao {
             "SWIPE_LEFT"
     };
 
+    @Inject
     public MobileActionDao() {
         preFill();
     }

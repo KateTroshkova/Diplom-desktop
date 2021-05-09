@@ -7,6 +7,9 @@ import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+import presentation.di.DaggerInjector;
+import presentation.di.Injector;
+import presentation.presenter.MobilePresenter;
 
 import java.io.*;
 import java.util.Collections;
@@ -20,7 +23,8 @@ public class IPSource extends ConnectionSource {
     private String phoneIP;
 
     public IPSource(String phoneIP) {
-        adb = new ADBHelper();
+        Injector injector = DaggerInjector.create();
+        adb = injector.injectADBHelper();
         this.phoneIP = phoneIP;
     }
 

@@ -9,9 +9,12 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
+import presentation.di.DaggerInjector;
+import presentation.di.Injector;
 import presentation.presenter.MobilePresenter;
 import presentation.view.MobileView;
 
+import javax.inject.Inject;
 import java.io.File;
 
 public class MobilePanel extends ImageView implements MobileView {
@@ -22,7 +25,9 @@ public class MobilePanel extends ImageView implements MobileView {
     private Button sendButton;
 
     public MobilePanel() {
+        Injector injector = DaggerInjector.create();
         presenter = new MobilePresenter(this);
+        injector.injectMobilePresenter(presenter);
         setOnMousePressed(this::onGestureStarted);
         setOnMouseReleased(this::onGestureFinished);
         setOnMouseDragged(this::onNewPoint);

@@ -5,8 +5,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import presentation.SceneChangeListener;
+import presentation.di.DaggerInjector;
+import presentation.di.Injector;
 import presentation.presenter.HotkeyPresenter;
 import presentation.presenter.MenuPresenter;
+import presentation.view.MenuApi;
 
 public class RightMenuPanel extends VBox implements MenuApi {
 
@@ -22,9 +25,12 @@ public class RightMenuPanel extends VBox implements MenuApi {
     private HotkeyPresenter hotkeyPresenter;
 
     public RightMenuPanel() {
+        Injector injector = DaggerInjector.create();
         presenter = MenuPresenter.getInstance();
+        injector.injectMenuPresenter(presenter);
         presenter.setMenuApi(this);
         hotkeyPresenter = new HotkeyPresenter();
+        injector.injectHotkeyPresenter(hotkeyPresenter);
         this.setOnKeyPressed((event) -> {
             hotkeyPresenter.handleEvent(event);
         });

@@ -10,19 +10,21 @@ import domain.model.DeviceInfo;
 import domain.model.Screenshot;
 import domain.model.events.*;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
+import javax.inject.Inject;
 import java.io.*;
 
 public class MobileRepository implements MobileRepositoryApi {
 
     private ConnectionSourceFactory factory;
-    private ADBHelper adb;
+    @Inject
+    ADBHelper adb;
     private ConnectionSource connection;
     private int currentIndex = 0;
 
+    @Inject
     public MobileRepository() {
-        adb = new ADBHelper();
+        //adb = new ADBHelper();
     }
 
     @Override

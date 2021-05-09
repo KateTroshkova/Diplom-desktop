@@ -3,6 +3,8 @@ package presentation.panel;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import presentation.di.DaggerInjector;
+import presentation.di.Injector;
 import presentation.presenter.MenuPresenter;
 
 public class BottomMenuPanel extends HBox {
@@ -18,7 +20,9 @@ public class BottomMenuPanel extends HBox {
     private MenuPresenter presenter;
 
     public BottomMenuPanel(){
+        Injector injector = DaggerInjector.create();
         presenter = MenuPresenter.getInstance();
+        injector.injectMenuPresenter(presenter);
     }
 
     public void setBackButton(ImageView backButton) {

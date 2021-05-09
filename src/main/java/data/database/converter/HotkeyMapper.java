@@ -6,7 +6,15 @@ import data.database.entity.MobileAction;
 import domain.common.Mapper;
 import domain.model.Hotkey;
 
+import javax.inject.Inject;
+
 public class HotkeyMapper implements Mapper<Hotkey, HotkeyEntity> {
+
+    @Inject
+    public HotkeyMapper(){
+
+    }
+
     @Override
     public HotkeyEntity fromBusiness(Hotkey hotkey) {
         return new HotkeyEntity(

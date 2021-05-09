@@ -2,6 +2,7 @@ package domain.common;
 
 import data.repository.StreamGobbler;
 
+import javax.inject.Inject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -10,6 +11,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ADBHelper {
+
+    @Inject
+    public ADBHelper(){}
 
     public int executeCommand(String command) throws InterruptedException, IOException {
         Process process = null;

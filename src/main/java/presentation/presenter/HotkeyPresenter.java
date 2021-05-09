@@ -12,13 +12,16 @@ import javafx.scene.input.KeyEvent;
 import presentation.common.EventListener;
 import presentation.view.HotkeyView;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
 public class HotkeyPresenter extends EventListener {
 
-    private HotkeyInteractor hotkeyInteractor;
-    private EventInteractor eventInteractor;
+    @Inject
+    HotkeyInteractor hotkeyInteractor;
+    @Inject
+    EventInteractor eventInteractor;
 
     private List<Hotkey> hotkeys;
 
@@ -27,8 +30,6 @@ public class HotkeyPresenter extends EventListener {
     private HotkeyView view;
 
     public HotkeyPresenter() {
-        eventInteractor = new EventInteractor();
-        hotkeyInteractor = new HotkeyInteractor();
     }
 
     public HotkeyPresenter(HotkeyView view) {
@@ -61,7 +62,7 @@ public class HotkeyPresenter extends EventListener {
                         .subscribeOn(Schedulers.io())
                         .subscribe(
                                 (actions) -> {
-                                    if (view!=null) {
+                                    if (view != null) {
                                         view.prepareMobileActions(FXCollections.observableArrayList(actions));
                                     }
                                 },
@@ -76,7 +77,7 @@ public class HotkeyPresenter extends EventListener {
                         .subscribeOn(Schedulers.io())
                         .subscribe(
                                 (actions) -> {
-                                    if (view!=null) {
+                                    if (view != null) {
                                         view.prepareDesktopActions(FXCollections.observableArrayList(actions));
                                     }
                                 },
@@ -94,7 +95,7 @@ public class HotkeyPresenter extends EventListener {
                         .subscribeOn(Schedulers.io())
                         .subscribe(
                                 () -> {
-                                    if (view!=null){
+                                    if (view != null) {
                                         update();
                                         loadHotkeys();
                                     }
@@ -108,14 +109,14 @@ public class HotkeyPresenter extends EventListener {
 
     public void removeHotkey(String hotkey) {
         String[] actions = hotkey.split(" - ");
-        System.out.println("to delete "+hotkey);
+        System.out.println("to delete " + hotkey);
         subsriptions.add(
                 hotkeyInteractor
                         .removeHotkey(new Hotkey(actions[0], actions[1]))
                         .subscribeOn(Schedulers.io())
                         .subscribe(
                                 () -> {
-                                    if (view!=null){
+                                    if (view != null) {
                                         update();
                                         loadHotkeys();
                                     }
@@ -184,9 +185,9 @@ public class HotkeyPresenter extends EventListener {
         }
     }
 
-    private void update(){
+    private void update() {
         List<String> hotkeysStrings = new ArrayList<>();
-        for(Hotkey hotkey:hotkeys){
+        for (Hotkey hotkey : hotkeys) {
             hotkeysStrings.add(hotkey.toString());
         }
         view.update(hotkeysStrings);

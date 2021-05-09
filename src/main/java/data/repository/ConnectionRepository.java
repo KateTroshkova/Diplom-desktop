@@ -5,10 +5,17 @@ import data.connection.ConnectionSource;
 import data.connection.ConnectionSourceFactory;
 import domain.api.ConnectionRepositoryApi;
 
+import javax.inject.Inject;
+
 public class ConnectionRepository implements ConnectionRepositoryApi {
 
     private ConnectionSourceFactory factory;
     private ConnectionSource connection;
+
+    @Inject
+    public ConnectionRepository(){
+
+    }
 
     @Override
     public void connect(String type, ConnectionSettings settings) {

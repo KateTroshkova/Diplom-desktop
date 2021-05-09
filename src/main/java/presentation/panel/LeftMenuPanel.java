@@ -3,6 +3,8 @@ package presentation.panel;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import presentation.di.DaggerInjector;
+import presentation.di.Injector;
 import presentation.presenter.HotkeyPresenter;
 import presentation.presenter.MenuPresenter;
 
@@ -19,7 +21,9 @@ public class LeftMenuPanel extends VBox {
     private MenuPresenter menuPresenter;
 
     public LeftMenuPanel(){
+        Injector injector = DaggerInjector.create();
         menuPresenter = MenuPresenter.getInstance();
+        injector.injectMenuPresenter(menuPresenter);
     }
 
     public void setRotateButton(ImageView rotateButton) {

@@ -5,14 +5,16 @@ import domain.api.MobileRepositoryApi;
 import domain.model.DeviceInfo;
 import domain.model.Screenshot;
 
+import javax.inject.Inject;
 import java.io.File;
 
 public class VideoInteractor {
 
     private MobileRepositoryApi repository;
 
-    public VideoInteractor(){
-        repository = new MobileRepository();
+    @Inject
+    public VideoInteractor(MobileRepositoryApi mobileRepositoryApi){
+        this.repository = mobileRepositoryApi;
     }
 
     public Screenshot receiveScreenshot() {

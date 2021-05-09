@@ -5,10 +5,12 @@ import data.database.entity.HotkeyEntity;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import javax.inject.Inject;
 import java.util.List;
 
 public class HotkeyDao {
 
+    @Inject
     public HotkeyDao(){ }
 
     public List<HotkeyEntity> readAll(){

@@ -12,6 +12,7 @@ import javafx.geometry.Point2D;
 import presentation.common.TouchListener;
 import presentation.view.MobileView;
 
+import javax.inject.Inject;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,15 +20,16 @@ import java.util.concurrent.TimeUnit;
 
 public class MobilePresenter extends TouchListener {
 
-    private EventInteractor eventInteractor;
-    private VideoInteractor videoInteractor;
+    @Inject
+    EventInteractor eventInteractor;
+    @Inject
+    VideoInteractor videoInteractor;
     private List<Disposable> subscriptions = new ArrayList<Disposable>();
     private MobileView view;
 
+    @Inject
     public MobilePresenter(MobileView view) {
         this.view = view;
-        eventInteractor = new EventInteractor();
-        videoInteractor = new VideoInteractor();
         subscriptions.add(Flowable
                 .interval(40, TimeUnit.MILLISECONDS)
                 .subscribe(

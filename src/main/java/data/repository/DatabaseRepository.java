@@ -20,13 +20,20 @@ public class DatabaseRepository implements DatabaseRepositoryApi {
     private HotkeyDao dao;
     private MobileActionDao mobileDao;
     private DesktopActionDao desktopDao;
+    private HotkeyMapper mapper;
 
     private List<HotkeyEntity> hotkeys;
 
-    public DatabaseRepository() {
-        dao = new HotkeyDao();
-        mobileDao = new MobileActionDao();
-        desktopDao = new DesktopActionDao();
+    public DatabaseRepository(
+            HotkeyDao dao,
+            MobileActionDao mobileDao,
+            DesktopActionDao desktopDao,
+            HotkeyMapper mapper
+    ) {
+        this.dao = dao;
+        this.mobileDao = mobileDao;
+        this.desktopDao = desktopDao;
+        this.mapper = mapper;
     }
 
     @Override
@@ -58,7 +65,6 @@ public class DatabaseRepository implements DatabaseRepositoryApi {
         return Single.fromCallable(() -> {
             List<HotkeyEntity> dbEntities = dao.readAll();
             this.hotkeys = dbEntities;
-            HotkeyMapper mapper = new HotkeyMapper();
             List<Hotkey> hotkeys = new ArrayList<>();
             for (HotkeyEntity entity : dbEntities) {
                 hotkeys.add(mapper.fromDto(entity));

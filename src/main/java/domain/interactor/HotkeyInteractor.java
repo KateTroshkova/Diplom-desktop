@@ -6,14 +6,16 @@ import domain.model.Hotkey;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
 
+import javax.inject.Inject;
 import java.util.List;
 
 public class HotkeyInteractor {
 
     private DatabaseRepositoryApi database;
 
-    public HotkeyInteractor() {
-        database = new DatabaseRepository();
+    @Inject
+    public HotkeyInteractor(DatabaseRepositoryApi database) {
+        this.database = database;
     }
 
     public Single<List<Hotkey>> readAllHotkeys() {
