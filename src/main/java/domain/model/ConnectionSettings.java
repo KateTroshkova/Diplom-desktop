@@ -1,4 +1,4 @@
-package data.connection;
+package domain.model;
 
 public class ConnectionSettings {
 

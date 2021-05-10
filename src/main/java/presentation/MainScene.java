@@ -7,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import presentation.panel.BottomMenuPanel;
 import presentation.panel.LeftMenuPanel;
@@ -18,8 +17,6 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class MainScene extends Scene implements SceneChangeListener{
-    @FXML
-    private BorderPane rootContainer;
 
     @FXML
     private MobilePanel mobilePanel;
@@ -55,73 +52,54 @@ public class MainScene extends Scene implements SceneChangeListener{
     private Button hotkeyButton;
 
     @FXML
-    public Button usbButton;
+    private Button usbButton;
 
     @FXML
-    public Button disconnectButton;
+    private Button disconnectButton;
 
     @FXML
-    public Button sendButton;
+    private Button sendButton;
 
     @FXML
-    public Button ipButton;
+    private Button ipButton;
 
     @FXML
-    public TextField ipField;
+    private TextField ipField;
 
     @FXML
-    public Button nextButton;
+    private Button nextButton;
 
     @FXML
-    public ImageView prevDeviceButton;
+    private ImageView prevDeviceButton;
 
     @FXML
-    public ImageView nextDeviceButton;
+    private ImageView nextDeviceButton;
 
     @FXML
-    public Label infoLabel;
+    private Label infoLabel;
 
     private static SceneChangeListener sceneChangeListener;
 
+    @SuppressWarnings("unused")
     public MainScene(){
-        super(new Pane(), 300, 300);
-    }
-
-    @FXML
-    public void initialize(){
-        Locale current = Locale.getDefault();
-        ResourceBundle res = ResourceBundle.getBundle("i18n.string", current);
-        hotkeyButton.setText(res.getString("label.hotkey"));
-        disconnectButton.setText(res.getString("label.stop"));
-        sendButton.setText(res.getString("label.send"));
-        usbButton.setText(res.getString("text.USB"));
-        ipButton.setText(res.getString("text.IP"));
-        nextButton.setText(res.getString("text.next"));
-        leftMenu.setLockButton(lockButton);
-        leftMenu.setMuteButton(muteButton);
-        leftMenu.setRotateButton(rotateButton);
-        leftMenu.setVolumeButton(volumeButton);
-        bottomMenu.setBackButton(backButton);
-        bottomMenu.setHomeButton(homeButton);
-        bottomMenu.setNextButton(nextDeviceButton);
-        bottomMenu.setPrevButton(prevDeviceButton);
-        rightMenu.setHotkeyButton(hotkeyButton);
-        rightMenu.setDisconnectButton(disconnectButton);
-        rightMenu.setUsbConnectionButton(usbButton);
-        rightMenu.setIPConnectionButton(ipButton);
-        rightMenu.setIpField(ipField);
-        rightMenu.setNextButton(nextButton);
-        mobilePanel.setSendButton(sendButton);
-        rightMenu.setSceneChangeListener(this);
-        mobilePanel.setInfoLabel(infoLabel);
-    }
-
-    public void setSceneChangeListener(SceneChangeListener sceneChangeListener) {
-        MainScene.sceneChangeListener = sceneChangeListener;
+        super(new Pane(), 0, 0);
     }
 
     public MainScene(Parent root, double width, double height) {
         super(root, width, height);
+    }
+
+    @FXML
+    public void initialize(){
+        setLocalization();
+        fillLeftPanel();
+        fillBottomPanel();
+        fillRightPanel();
+        fillCenterPanel();
+    }
+
+    public void setSceneChangeListener(SceneChangeListener sceneChangeListener) {
+        MainScene.sceneChangeListener = sceneChangeListener;
     }
 
     @Override
@@ -132,5 +110,45 @@ public class MainScene extends Scene implements SceneChangeListener{
     @Override
     public void onCloseDialog() {
         sceneChangeListener.onCloseDialog();
+    }
+
+    private void setLocalization(){
+        Locale current = Locale.getDefault();
+        ResourceBundle res = ResourceBundle.getBundle("i18n.string", current);
+        hotkeyButton.setText(res.getString("label.hotkey"));
+        disconnectButton.setText(res.getString("label.stop"));
+        sendButton.setText(res.getString("label.send"));
+        usbButton.setText(res.getString("text.USB"));
+        ipButton.setText(res.getString("text.IP"));
+        nextButton.setText(res.getString("text.next"));
+    }
+
+    private void fillRightPanel(){
+        rightMenu.setHotkeyButton(hotkeyButton);
+        rightMenu.setDisconnectButton(disconnectButton);
+        rightMenu.setUsbConnectionButton(usbButton);
+        rightMenu.setIPConnectionButton(ipButton);
+        rightMenu.setIpField(ipField);
+        rightMenu.setNextButton(nextButton);
+        rightMenu.setSceneChangeListener(this);
+    }
+
+    private void fillLeftPanel(){
+        leftMenu.setLockButton(lockButton);
+        leftMenu.setMuteButton(muteButton);
+        leftMenu.setRotateButton(rotateButton);
+        leftMenu.setVolumeButton(volumeButton);
+    }
+
+    private void fillBottomPanel(){
+        bottomMenu.setBackButton(backButton);
+        bottomMenu.setHomeButton(homeButton);
+        bottomMenu.setNextButton(nextDeviceButton);
+        bottomMenu.setPrevButton(prevDeviceButton);
+    }
+
+    private void fillCenterPanel(){
+        mobilePanel.setSendButton(sendButton);
+        mobilePanel.setInfoLabel(infoLabel);
     }
 }

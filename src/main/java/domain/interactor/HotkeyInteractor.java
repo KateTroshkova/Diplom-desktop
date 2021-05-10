@@ -1,6 +1,5 @@
 package domain.interactor;
 
-import data.repository.DatabaseRepository;
 import domain.api.DatabaseRepositoryApi;
 import domain.model.Hotkey;
 import io.reactivex.rxjava3.core.Completable;
@@ -11,7 +10,7 @@ import java.util.List;
 
 public class HotkeyInteractor {
 
-    private DatabaseRepositoryApi database;
+    private final DatabaseRepositoryApi database;
 
     @Inject
     public HotkeyInteractor(DatabaseRepositoryApi database) {

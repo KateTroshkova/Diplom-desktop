@@ -1,6 +1,5 @@
 package presentation.panel;
 
-import data.connection.ConnectionSettings;
 import domain.model.DeviceInfo;
 import domain.model.Screenshot;
 import javafx.geometry.Point2D;
@@ -14,14 +13,16 @@ import presentation.di.Injector;
 import presentation.presenter.MobilePresenter;
 import presentation.view.MobileView;
 
-import javax.inject.Inject;
 import java.io.File;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class MobilePanel extends ImageView implements MobileView {
 
-    private MobilePresenter presenter;
+    private final MobilePresenter presenter;
 
     private Label infoLabel;
+
     private Button sendButton;
 
     public MobilePanel() {
@@ -41,7 +42,9 @@ public class MobilePanel extends ImageView implements MobileView {
         this.sendButton = sendButton;
         this.sendButton.setOnAction(e -> {
             FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Choose file");
+            Locale current = Locale.getDefault();
+            ResourceBundle res = ResourceBundle.getBundle("i18n.string", current);
+            fileChooser.setTitle(res.getString("text.choose"));
             fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Files", "*.*"));
             File file = fileChooser.showOpenDialog(this.getScene().getWindow());
             presenter.sendFile(file);

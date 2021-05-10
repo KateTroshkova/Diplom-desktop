@@ -7,16 +7,14 @@ import domain.model.events.*;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import javafx.collections.FXCollections;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import presentation.common.EventListener;
 import presentation.view.HotkeyView;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HotkeyPresenter extends EventListener {
+public class HotkeyPresenter{
 
     @Inject
     HotkeyInteractor hotkeyInteractor;
@@ -25,12 +23,11 @@ public class HotkeyPresenter extends EventListener {
 
     private List<Hotkey> hotkeys;
 
-    private List<Disposable> subsriptions = new ArrayList<>();
+    private final List<Disposable> subscriptions = new ArrayList<>();
 
     private HotkeyView view;
 
-    public HotkeyPresenter() {
-    }
+    public HotkeyPresenter() { }
 
     public HotkeyPresenter(HotkeyView view) {
         this();
@@ -38,7 +35,7 @@ public class HotkeyPresenter extends EventListener {
     }
 
     public void loadHotkeys() {
-        subsriptions.add(
+        subscriptions.add(
                 hotkeyInteractor
                         .readAllHotkeys()
                         .subscribeOn(Schedulers.io())
@@ -51,12 +48,10 @@ public class HotkeyPresenter extends EventListener {
                                         }
                                     }
                                 },
-                                (error) -> {
-                                    System.out.println(error);
-                                }
+                                System.out::println
                         )
         );
-        subsriptions.add(
+        subscriptions.add(
                 hotkeyInteractor
                         .readMobileActions()
                         .subscribeOn(Schedulers.io())
@@ -66,12 +61,10 @@ public class HotkeyPresenter extends EventListener {
                                         view.prepareMobileActions(FXCollections.observableArrayList(actions));
                                     }
                                 },
-                                (error) -> {
-
-                                }
+                                System.out::println
                         )
         );
-        subsriptions.add(
+        subscriptions.add(
                 hotkeyInteractor
                         .readDesktopActions()
                         .subscribeOn(Schedulers.io())
@@ -81,49 +74,42 @@ public class HotkeyPresenter extends EventListener {
                                         view.prepareDesktopActions(FXCollections.observableArrayList(actions));
                                     }
                                 },
-                                (error) -> {
-
-                                }
+                                System.out::println
                         )
         );
     }
 
     public void addHotkey(String mobileAction, String desktopAction) {
-        subsriptions.add(
+        subscriptions.add(
                 hotkeyInteractor
                         .saveHotkey(new Hotkey(mobileAction, desktopAction))
                         .subscribeOn(Schedulers.io())
                         .subscribe(
                                 () -> {
                                     if (view != null) {
-                                        update();
+                                        view.update();
                                         loadHotkeys();
                                     }
                                 },
-                                (error) -> {
-                                    System.out.println(error);
-                                }
+                                System.out::println
                         )
         );
     }
 
     public void removeHotkey(String hotkey) {
         String[] actions = hotkey.split(" - ");
-        System.out.println("to delete " + hotkey);
-        subsriptions.add(
+        subscriptions.add(
                 hotkeyInteractor
                         .removeHotkey(new Hotkey(actions[0], actions[1]))
                         .subscribeOn(Schedulers.io())
                         .subscribe(
                                 () -> {
                                     if (view != null) {
-                                        update();
+                                        view.update();
                                         loadHotkeys();
                                     }
                                 },
-                                (error) -> {
-                                    System.out.println(error);
-                                }
+                                System.out::println
                         )
         );
     }
@@ -169,27 +155,19 @@ public class HotkeyPresenter extends EventListener {
             return;
         }
         if (input.getMobileAction().equals("SWIPE_UP")) {
-            eventInteractor.sendEvent(new SwipeEvent(500, 500, 500, 0));
-            return;
-        }
-        if (input.getMobileAction().equals("SWIPE_DOWN")) {
             eventInteractor.sendEvent(new SwipeEvent(500, 0, 500, 500));
             return;
         }
+        if (input.getMobileAction().equals("SWIPE_DOWN")) {
+            eventInteractor.sendEvent(new SwipeEvent(500, 500, 500, 0));
+            return;
+        }
         if (input.getMobileAction().equals("SWIPE_RIGHT")) {
-            eventInteractor.sendEvent(new SwipeEvent(0, 500, 500, 500));
+            eventInteractor.sendEvent(new SwipeEvent(500, 500, 0, 500));
             return;
         }
         if (input.getMobileAction().equals("SWIPE_LEFT")) {
-            eventInteractor.sendEvent(new SwipeEvent(500, 500, 0, 500));
+            eventInteractor.sendEvent(new SwipeEvent(0, 500, 500, 500));
         }
-    }
-
-    private void update() {
-        List<String> hotkeysStrings = new ArrayList<>();
-        for (Hotkey hotkey : hotkeys) {
-            hotkeysStrings.add(hotkey.toString());
-        }
-        view.update(hotkeysStrings);
     }
 }

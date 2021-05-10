@@ -17,6 +17,16 @@ public class CustomApplication extends Application implements SceneChangeListene
     private HotkeyScene hotkey;
     private Stage primaryStage;
 
+    private static final String title="Troshkova E.L. AVT-716";
+    private static final String icPath="ic_launcher.png";
+    private static final String homePath="src/main/resources/home.fxml";
+    private static final String hotkeyPath="src/main/resources/dialog_hotkey.fxml";
+
+    private static final int mainWidth=800;
+    private static final int mainHeight=1000;
+    private static final int hotkeyWidth=600;
+    private static final int hotkeyHeight=600;
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -24,14 +34,14 @@ public class CustomApplication extends Application implements SceneChangeListene
     @Override
     public void start(Stage primaryStage) throws IOException {
         this.primaryStage = primaryStage;
-        primaryStage.setTitle("Troshkova E.L. AVT-716");
-        primaryStage.getIcons().add(new Image("ic_launcher.png"));
-        URL homeUrl = new File("src/main/resources/home.fxml").toURI().toURL();
-        URL hotkeyUrl = new File("src/main/resources/dialog_hotkey.fxml").toURI().toURL();
+        primaryStage.setTitle(title);
+        primaryStage.getIcons().add(new Image(icPath));
+        URL homeUrl = new File(homePath).toURI().toURL();
+        URL hotkeyUrl = new File(hotkeyPath).toURI().toURL();
         BorderPane homeRoot = FXMLLoader.load(homeUrl);
         VBox hotkeyRoot = FXMLLoader.load(hotkeyUrl);
-        main = new MainScene(homeRoot, 720, 720);
-        hotkey = new HotkeyScene(hotkeyRoot, 600, 600);
+        main = new MainScene(homeRoot, mainWidth, mainHeight);
+        hotkey = new HotkeyScene(hotkeyRoot, hotkeyWidth, hotkeyHeight);
         primaryStage.setScene(main);
         primaryStage.show();
         main.setSceneChangeListener(this);

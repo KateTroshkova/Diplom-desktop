@@ -1,6 +1,6 @@
 package domain.api;
 
-import data.connection.ConnectionSettings;
+import domain.model.ConnectionSettings;
 
 public interface ConnectionRepositoryApi {
 

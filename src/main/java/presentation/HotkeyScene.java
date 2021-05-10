@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Spinner;
 import javafx.scene.layout.Pane;
 import presentation.panel.HotkeyPanel;
 
@@ -18,11 +17,11 @@ public class HotkeyScene extends Scene implements SceneChangeListener {
     @FXML
     private HotkeyPanel hotkeyContainer;
     @FXML
-    private ListView hotkeyList;
+    private ListView<String> hotkeyList;
     @FXML
-    private ComboBox mobileSpinner;
+    private ComboBox<String> mobileSpinner;
     @FXML
-    private ComboBox desktopSpinner;
+    private ComboBox<String> desktopSpinner;
     @FXML
     private Button addButton;
     @FXML
@@ -31,16 +30,18 @@ public class HotkeyScene extends Scene implements SceneChangeListener {
     private static SceneChangeListener sceneChangeListener;
     private static DataReadyListener dataReadyListener;
 
+    @SuppressWarnings("unused")
     public HotkeyScene() {
         super(new Pane(), 600, 600);
     }
 
+    public HotkeyScene(Parent root, double width, double height) {
+        super(root, width, height);
+    }
+
     @FXML
     public void initialize() {
-        Locale current = Locale.getDefault();
-        ResourceBundle res = ResourceBundle.getBundle("i18n.string", current);
-        addButton.setText(res.getString("text.add"));
-        backButton.setText(res.getString("text.back"));
+        setLocalization();
         hotkeyContainer.setHotkeyList(hotkeyList);
         hotkeyContainer.setMobileComboBox(mobileSpinner);
         hotkeyContainer.setDesktopComboBox(desktopSpinner);
@@ -50,15 +51,11 @@ public class HotkeyScene extends Scene implements SceneChangeListener {
         dataReadyListener = hotkeyContainer;
     }
 
-    public HotkeyScene(Parent root, double width, double height) {
-        super(root, width, height);
-    }
-
     public void setSceneChangeListener(SceneChangeListener sceneChangeListener) {
         HotkeyScene.sceneChangeListener = sceneChangeListener;
     }
 
-    public void prepareData(){
+    public void prepareData() {
         dataReadyListener.onPrepareData();
     }
 
@@ -70,5 +67,12 @@ public class HotkeyScene extends Scene implements SceneChangeListener {
     @Override
     public void onCloseDialog() {
         sceneChangeListener.onCloseDialog();
+    }
+
+    private void setLocalization() {
+        Locale current = Locale.getDefault();
+        ResourceBundle res = ResourceBundle.getBundle("i18n.string", current);
+        addButton.setText(res.getString("text.add"));
+        backButton.setText(res.getString("text.back"));
     }
 }

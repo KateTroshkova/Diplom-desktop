@@ -1,5 +1,7 @@
 package data.connection;
 
+import domain.model.ConnectionSettings;
+
 public class ConnectionSourceFactory {
 
     private ConnectionSource connection;
@@ -25,7 +27,6 @@ public class ConnectionSourceFactory {
 
     private ConnectionSourceFactory(String type, ConnectionSettings settings) {
         if (type.equals("IP")) connection = new IPSource(settings.getPhoneIP());
-        if (type.equals("Wifi")) connection = new WifiSource();
         if (type.equals("USB")) connection = new USBSource();
     }
 

@@ -6,7 +6,8 @@
 <?import javafx.scene.layout.*?>
 <?import presentation.panel.*?>
 
-<BorderPane fx:id="rootContainer" prefHeight="800.0" prefWidth="600.0" style="-fx-background-color: ffffff" xmlns="http://javafx.com/javafx/11.0.1"
+<BorderPane fx:id="rootContainer" prefHeight="800.0" prefWidth="600.0" style="-fx-background-color: ffffff"
+            xmlns="http://javafx.com/javafx/11.0.1"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.MainScene">
     <left>
         <LeftMenuPanel fx:id="leftMenu" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="64.0"
@@ -56,19 +57,26 @@
                 <Label fx:id="infoLabel"/>
                 <HBox prefWidth="220.0" BorderPane.alignment="CENTER">
                     <children>
-                        <Button fx:id="usbButton" prefWidth="110" mnemonicParsing="false" text="USB" style="-fx-border-color: #49b773; -fx-background-color: ffffff"/>
-                        <Button fx:id="ipButton" prefWidth="110" mnemonicParsing="false" text="IP" style="-fx-border-color: #49b773; -fx-background-color: ffffff"/>
+                        <Button fx:id="usbButton" prefWidth="110" mnemonicParsing="false" text="USB"
+                                style="-fx-border-color: #49b773; -fx-background-color: ffffff"/>
+                        <Button fx:id="ipButton" prefWidth="110" mnemonicParsing="false" text="IP"
+                                style="-fx-border-color: #49b773; -fx-background-color: ffffff"/>
                     </children>
                 </HBox>
                 <HBox prefWidth="220.0" BorderPane.alignment="CENTER">
                     <children>
-                        <TextField fx:id="ipField" prefWidth="150" visible="false" promptText="xxx.xxx.xxx.xxx" style="-fx-border-color: #49b773; -fx-background-color: ffffff"/>
-                        <Button fx:id="nextButton" prefWidth="75" visible="false" text="Далее" style="-fx-border-color: #49b773; -fx-background-color: ffffff"/>
+                        <TextField fx:id="ipField" prefWidth="150" visible="false" promptText="xxx.xxx.xxx.xxx"
+                                   style="-fx-border-color: #49b773; -fx-background-color: ffffff"/>
+                        <Button fx:id="nextButton" prefWidth="75" visible="false" text="Далее"
+                                style="-fx-border-color: #49b773; -fx-background-color: ffffff"/>
                     </children>
                 </HBox>
-                <Button fx:id="disconnectButton" mnemonicParsing="false" text="Закончить трансляцию" style="-fx-border-color: #49b773; -fx-background-color: ffffff"/>
-                <Button fx:id="hotkeyButton" mnemonicParsing="false" text="Назначить горячие клавиши" style="-fx-border-color: #49b773; -fx-background-color: ffffff"/>
-                <Button fx:id="sendButton" mnemonicParsing="false" text="Отправить файл" style="-fx-border-color: #49b773; -fx-background-color: ffffff"/>
+                <Button fx:id="disconnectButton" prefWidth="220.0" mnemonicParsing="false" text="Закончить трансляцию"
+                        style="-fx-border-color: #49b773; -fx-background-color: ffffff"/>
+                <Button fx:id="hotkeyButton" prefWidth="220.0" mnemonicParsing="false" text="Назначить горячие клавиши"
+                        style="-fx-border-color: #49b773; -fx-background-color: ffffff"/>
+                <Button fx:id="sendButton" prefWidth="220.0" mnemonicParsing="false" text="Отправить файл"
+                        style="-fx-border-color: #49b773; -fx-background-color: ffffff"/>
             </children>
         </RightMenuPanel>
     </right>
@@ -102,6 +110,7 @@
             </center>
             <bottom>
                 <BottomMenuPanel fx:id="bottomMenu" alignment="CENTER" prefHeight="64.0" prefWidth="200.0"
+                                 minHeight="64.0"
                                  BorderPane.alignment="CENTER">
                     <children>
                         <ImageView fx:id="backButton" fitHeight="32" fitWidth="32" pickOnBounds="true"

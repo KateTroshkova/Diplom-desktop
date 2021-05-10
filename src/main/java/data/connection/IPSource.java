@@ -9,7 +9,6 @@ import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import presentation.di.DaggerInjector;
 import presentation.di.Injector;
-import presentation.presenter.MobilePresenter;
 
 import java.io.*;
 import java.util.Collections;
@@ -20,7 +19,9 @@ public class IPSource extends ConnectionSource {
     private boolean isConnect;
     private Disposable connection;
     private final ADBHelper adb;
-    private String phoneIP;
+    private final String phoneIP;
+
+    private static final int deviceInfoDelay = 2000;
 
     public IPSource(String phoneIP) {
         Injector injector = DaggerInjector.create();
@@ -33,16 +34,14 @@ public class IPSource extends ConnectionSource {
         try {
             setUPWirelessConnection(phoneIP);
             findDevices();
-            String mobilePath = FileUtils.baseMobilePath + "/mobile_info.txt";
-            String pcPath = FileUtils.baseDesktopPath;
             prepareFileDirectory();
             connection = Flowable
-                    .interval(1, TimeUnit.SECONDS)
+                    .interval(deviceInfoDelay, TimeUnit.MILLISECONDS)
                     .subscribeOn(Schedulers.io())
                     .subscribe(
                             (time) -> {
                                 try {
-                                    int result = adb.executeCommand("adb pull " + mobilePath + " " + pcPath);
+                                    int result = adb.executeCommand("adb pull " + FileUtils.deviceInfoMobilePath + " " + FileUtils.baseDesktopPath);
                                     if (result == 0) {
                                         isConnect = true;
                                     } else {
@@ -51,7 +50,6 @@ public class IPSource extends ConnectionSource {
                                 } catch (IOException e) {
                                     handleConnectionError();
                                 }
-                                System.out.println("connection " + isConnect);
                             },
                             e -> connect()
                     );
@@ -70,12 +68,7 @@ public class IPSource extends ConnectionSource {
                 .delay(2, TimeUnit.SECONDS)
                 .andThen(Completable.fromAction(this::deleteTempFiles))
                 .subscribeOn(Schedulers.io())
-                .subscribe(
-                        () -> {
-                        },
-                        e -> {
-                        }
-                );
+                .subscribe();
     }
 
     @Override
@@ -103,9 +96,7 @@ public class IPSource extends ConnectionSource {
     private void receiveVideo() {
         try {
             String mobilePath = FileUtils.baseMobilePath + "/record1.mp4";
-            String pcPath = FileUtils.baseDesktopPath;
-            //adb.executeCommand("adb " + getCurrentDevice(true) + " pull " + mobilePath + " " + pcPath);
-            File file = new File(pcPath + "\\mobile_info.txt");
+            File file = new File(FileUtils.deviceInfoDesktopPath);
             StringBuilder resultStringBuilder = new StringBuilder();
             try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
                 String line;
@@ -115,7 +106,7 @@ public class IPSource extends ConnectionSource {
             }
             DeviceInfo info = new DeviceInfo(resultStringBuilder.toString());
             if (info.isVideoNeeded()) {
-                adb.executeCommand("adb " + getCurrentDevice(true) + " pull " + mobilePath + " " + pcPath);
+                adb.executeCommand("adb " + getCurrentDevice(true) + " pull " + mobilePath + " " + FileUtils.baseDesktopPath);
             }
         } catch (InterruptedException | IOException e) {
             e.printStackTrace();

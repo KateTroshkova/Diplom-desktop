@@ -27,29 +27,21 @@ public class BottomMenuPanel extends HBox {
 
     public void setBackButton(ImageView backButton) {
         this.backButton = backButton;
-        backButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            presenter.back();
-        });
+        backButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> presenter.back());
     }
 
     public void setHomeButton(ImageView homeButton) {
         this.homeButton = homeButton;
-        homeButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            presenter.home();
-        });
+        homeButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> presenter.home());
     }
 
     public void setNextButton(ImageView nextButton) {
         this.nextButton = nextButton;
-        this.nextButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event->{
-            presenter.next();
-        });
+        this.nextButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event-> presenter.next());
     }
 
     public void setPrevButton(ImageView prevButton) {
         this.prevButton = prevButton;
-        this.prevButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event->{
-            presenter.prev();
-        });
+        this.prevButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event-> presenter.prev());
     }
 }

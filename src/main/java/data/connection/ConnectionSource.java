@@ -62,8 +62,8 @@ public abstract class ConnectionSource {
     }
 
     protected void deleteScreenshots(){
-        for (int i = 0; i < 20; i++) {
-            File screenshot = new File(FileUtils.baseDesktopPath + "\\screenshot" + i + ".png");
+        for (int i = 0; i < FileUtils.screenCount; i++) {
+            File screenshot = new File(FileUtils.getScreenName(i));
             if (screenshot.exists()) {
                 screenshot.delete();
             }
@@ -71,7 +71,7 @@ public abstract class ConnectionSource {
     }
 
     private void deletePhoneInfo(){
-        File info = new File(FileUtils.baseDesktopPath + "\\mobile_info.txt");
+        File info = new File(FileUtils.deviceInfoDesktopPath);
         if (info.exists()) {
             info.delete();
         }

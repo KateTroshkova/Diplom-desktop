@@ -8,6 +8,7 @@ import domain.model.events.Event;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import javafx.geometry.Point2D;
 import presentation.common.TouchListener;
 import presentation.view.MobileView;
@@ -24,26 +25,34 @@ public class MobilePresenter extends TouchListener {
     EventInteractor eventInteractor;
     @Inject
     VideoInteractor videoInteractor;
-    private List<Disposable> subscriptions = new ArrayList<Disposable>();
-    private MobileView view;
 
-    @Inject
+    private final List<Disposable> subscriptions = new ArrayList<Disposable>();
+
+    private final MobileView view;
+
+    private static final int videoDelay = 40;
+    private static final int infoDelay = 1000;
+
     public MobilePresenter(MobileView view) {
         this.view = view;
         subscriptions.add(Flowable
-                .interval(40, TimeUnit.MILLISECONDS)
+                .interval(videoDelay, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.io())
                 .subscribe(
                         e -> {
                             try {
                                 Screenshot screenshot = videoInteractor.receiveScreenshot();
-                                view.updateImage(screenshot);
+                                if (view != null) {
+                                    view.updateImage(screenshot);
+                                }
                             } catch (NullPointerException ignore) {
                             }
                         },
                         System.out::println
                 ));
         subscriptions.add(Flowable
-                .interval(1, TimeUnit.SECONDS)
+                .interval(infoDelay, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.io())
                 .subscribe(
                         e -> {
                             DeviceInfo info = videoInteractor.receiveFile();
@@ -72,10 +81,10 @@ public class MobilePresenter extends TouchListener {
     }
 
     public void sendFile(File file) {
-        subscriptions.add(
-                Completable.fromAction(() -> {
+        subscriptions.add(Completable.fromAction(() -> {
                     videoInteractor.sendFile(file);
                 })
+                        .subscribeOn(Schedulers.io())
                         .subscribe()
         );
     }

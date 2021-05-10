@@ -23,7 +23,8 @@ public class MobileRepository implements MobileRepositoryApi {
     private int currentIndex = 0;
 
     @Inject
-    public MobileRepository() {
+    public MobileRepository(ADBHelper adb) {
+        this.adb = adb;
         //adb = new ADBHelper();
     }
 

@@ -1,13 +1,13 @@
 package domain.interactor;
 
-import data.connection.ConnectionSettings;
-import data.repository.ConnectionRepository;
+import domain.model.ConnectionSettings;
 import domain.api.ConnectionRepositoryApi;
 
 import javax.inject.Inject;
 
 public class ConnectionInteractor {
-    private ConnectionRepositoryApi repository;
+
+    private final ConnectionRepositoryApi repository;
 
     @Inject
     public ConnectionInteractor(ConnectionRepositoryApi repository){

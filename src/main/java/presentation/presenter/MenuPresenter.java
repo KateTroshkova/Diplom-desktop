@@ -1,15 +1,14 @@
 package presentation.presenter;
 
-import data.connection.ConnectionSettings;
+import domain.model.ConnectionSettings;
 import domain.interactor.ConnectionInteractor;
 import domain.interactor.EventInteractor;
 import domain.model.events.*;
-import presentation.common.EventListener;
-import presentation.view.MenuApi;
+import presentation.view.MenuView;
 
 import javax.inject.Inject;
 
-public class MenuPresenter extends EventListener {
+public class MenuPresenter{
 
     private static MenuPresenter instance;
 
@@ -17,9 +16,11 @@ public class MenuPresenter extends EventListener {
     EventInteractor eventInteractor;
     @Inject
     ConnectionInteractor connectionInteractor;
-    private MenuApi menuApi;
+
+    private MenuView view;
 
     private int currentRotation;
+
     private boolean isLocked;
 
     public static MenuPresenter getInstance(){
@@ -31,11 +32,6 @@ public class MenuPresenter extends EventListener {
 
     private MenuPresenter() { }
 
-    private MenuPresenter(MenuApi menuApi) {
-        this();
-        setMenuApi(menuApi);
-    }
-
     public void connect(String type, ConnectionSettings settings){
         connectionInteractor.connect(type, settings);
     }
@@ -45,7 +41,7 @@ public class MenuPresenter extends EventListener {
     }
 
     public void enterWifi(){
-        menuApi.showWifiInputView(true);
+        view.showWifiInputView(true);
     }
 
     public void rotate() {
@@ -82,11 +78,7 @@ public class MenuPresenter extends EventListener {
         connectionInteractor.checkPrev();
     }
 
-    public MenuApi getMenuApi() {
-        return menuApi;
-    }
-
-    public void setMenuApi(MenuApi menuApi) {
-        this.menuApi = menuApi;
+    public void setMenuApi(MenuView menuView) {
+        this.view = menuView;
     }
 }

@@ -8,9 +8,9 @@ import java.util.ArrayList;
 
 public abstract class TouchListener {
 
-    private GestureDetector gestureDetector;
+    private final GestureDetector gestureDetector;
 
-    private ArrayList<Point2D> points;
+    private final ArrayList<Point2D> points;
 
     public TouchListener() {
         points = new ArrayList<>();

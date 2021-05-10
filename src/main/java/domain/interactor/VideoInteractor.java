@@ -1,6 +1,5 @@
 package domain.interactor;
 
-import data.repository.MobileRepository;
 import domain.api.MobileRepositoryApi;
 import domain.model.DeviceInfo;
 import domain.model.Screenshot;
@@ -10,7 +9,7 @@ import java.io.File;
 
 public class VideoInteractor {
 
-    private MobileRepositoryApi repository;
+    private final MobileRepositoryApi repository;
 
     @Inject
     public VideoInteractor(MobileRepositoryApi mobileRepositoryApi){

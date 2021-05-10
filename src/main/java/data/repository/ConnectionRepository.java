@@ -1,6 +1,6 @@
 package data.repository;
 
-import data.connection.ConnectionSettings;
+import domain.model.ConnectionSettings;
 import data.connection.ConnectionSource;
 import data.connection.ConnectionSourceFactory;
 import domain.api.ConnectionRepositoryApi;

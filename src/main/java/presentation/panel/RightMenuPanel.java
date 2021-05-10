@@ -1,6 +1,6 @@
 package presentation.panel;
 
-import data.connection.ConnectionSettings;
+import domain.model.ConnectionSettings;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -9,31 +9,36 @@ import presentation.di.DaggerInjector;
 import presentation.di.Injector;
 import presentation.presenter.HotkeyPresenter;
 import presentation.presenter.MenuPresenter;
-import presentation.view.MenuApi;
+import presentation.view.MenuView;
 
-public class RightMenuPanel extends VBox implements MenuApi {
+public class RightMenuPanel extends VBox implements MenuView {
 
     private Button hotkeyButton;
+
     private Button usbConnectionButton;
+
     private Button ipConnectionButton;
+
     private Button disconnectButton;
+
     private TextField ipField;
+
     private Button nextButton;
 
     private SceneChangeListener sceneChangeListener;
-    private MenuPresenter presenter;
-    private HotkeyPresenter hotkeyPresenter;
+
+    private final MenuPresenter menuPresenter;
+
+    private final HotkeyPresenter hotkeyPresenter;
 
     public RightMenuPanel() {
         Injector injector = DaggerInjector.create();
-        presenter = MenuPresenter.getInstance();
-        injector.injectMenuPresenter(presenter);
-        presenter.setMenuApi(this);
+        menuPresenter = MenuPresenter.getInstance();
+        injector.injectMenuPresenter(menuPresenter);
+        menuPresenter.setMenuApi(this);
         hotkeyPresenter = new HotkeyPresenter();
         injector.injectHotkeyPresenter(hotkeyPresenter);
-        this.setOnKeyPressed((event) -> {
-            hotkeyPresenter.handleEvent(event);
-        });
+        this.setOnKeyPressed(hotkeyPresenter::handleEvent);
         hotkeyPresenter.loadHotkeys();
     }
 
@@ -46,23 +51,17 @@ public class RightMenuPanel extends VBox implements MenuApi {
 
     public void setUsbConnectionButton(Button usbConnectionButton) {
         this.usbConnectionButton = usbConnectionButton;
-        this.usbConnectionButton.setOnAction(e -> {
-            presenter.connect("USB", new ConnectionSettings());
-        });
+        this.usbConnectionButton.setOnAction(e -> menuPresenter.connect("USB", new ConnectionSettings()));
     }
 
     public void setIPConnectionButton(Button ipConnectionButton) {
         this.ipConnectionButton = ipConnectionButton;
-        this.ipConnectionButton.setOnAction(e -> {
-            presenter.enterWifi();
-        });
+        this.ipConnectionButton.setOnAction(e -> menuPresenter.enterWifi());
     }
 
     public void setDisconnectButton(Button disconnectButton) {
         this.disconnectButton = disconnectButton;
-        this.disconnectButton.setOnAction(e -> {
-            presenter.disconnect();
-        });
+        this.disconnectButton.setOnAction(e -> menuPresenter.disconnect());
     }
 
     public void setIpField(TextField ipField) {
@@ -74,7 +73,7 @@ public class RightMenuPanel extends VBox implements MenuApi {
         this.nextButton.setOnAction(e -> {
             ConnectionSettings settings = new ConnectionSettings();
             settings.setPhoneIP(ipField.getText());
-            presenter.connect("IP", settings);
+            menuPresenter.connect("IP", settings);
         });
     }
 

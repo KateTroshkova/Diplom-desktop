@@ -2,8 +2,8 @@ package presentation.panel;
 
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import presentation.DataReadyListener;
@@ -13,17 +13,20 @@ import presentation.di.Injector;
 import presentation.presenter.HotkeyPresenter;
 import presentation.view.HotkeyView;
 
-import java.util.List;
-
 public class HotkeyPanel extends VBox implements HotkeyView, DataReadyListener {
 
     private ListView<String> hotkeyList;
+
     private ComboBox<String> mobileComboBox;
+
     private ComboBox<String> desktopComboBox;
+
     private Button addButton;
+
     private Button backButton;
 
     private HotkeyPresenter presenter;
+
     private SceneChangeListener sceneChangeListener;
 
     public HotkeyPanel() {
@@ -48,54 +51,26 @@ public class HotkeyPanel extends VBox implements HotkeyView, DataReadyListener {
     }
 
     @Override
-    public void update(List<String> hotkeys) {
+    public void update() {
         hotkeyList.getItems().clear();
-    }
-
-    public void prepareData() {
-
-    }
-
-    public ListView<String> getHotkeyList() {
-        return hotkeyList;
     }
 
     public void setHotkeyList(ListView<String> hotkeyList) {
         this.hotkeyList = hotkeyList;
-        this.hotkeyList.setOnMouseClicked((event) -> {
-            presenter.removeHotkey(hotkeyList.getSelectionModel().getSelectedItem());
-        });
+        this.hotkeyList.setOnMouseClicked((event) -> presenter.removeHotkey(hotkeyList.getSelectionModel().getSelectedItem()));
     }
 
-    public ComboBox getMobileComboBox() {
-        return mobileComboBox;
-    }
-
-    public void setMobileComboBox(ComboBox mobileComboBox) {
+    public void setMobileComboBox(ComboBox<String> mobileComboBox) {
         this.mobileComboBox = mobileComboBox;
     }
 
-    public ComboBox getDesktopComboBox() {
-        return desktopComboBox;
-    }
-
-    public void setDesktopComboBox(ComboBox desktopComboBox) {
+    public void setDesktopComboBox(ComboBox<String> desktopComboBox) {
         this.desktopComboBox = desktopComboBox;
-    }
-
-    public Button getAddButton() {
-        return addButton;
     }
 
     public void setAddButton(Button addButton) {
         this.addButton = addButton;
-        this.addButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            presenter.addHotkey(mobileComboBox.getValue(), desktopComboBox.getValue());
-        });
-    }
-
-    public Button getBackButton() {
-        return backButton;
+        this.addButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> presenter.addHotkey(mobileComboBox.getValue(), desktopComboBox.getValue()));
     }
 
     public void setBackButton(Button backButton) {

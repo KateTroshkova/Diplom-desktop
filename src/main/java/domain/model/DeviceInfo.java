@@ -30,7 +30,7 @@ public class DeviceInfo {
         fileToSend = (String) obj.get("fileToSend");
     }
 
-    public String getId() {
+    public String getzId() {
         return id;
     }
 

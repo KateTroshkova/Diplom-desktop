@@ -1,6 +1,6 @@
 package presentation.view;
 
-public interface MenuApi {
+public interface MenuView {
 
     void showWifiInputView(boolean show);
 }

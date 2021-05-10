@@ -26,16 +26,20 @@ public class ADBHelper {
         else {
             process = Runtime.getRuntime().exec(command);
         }
-        StreamGobbler streamGobbler = new StreamGobbler(process.getInputStream(), System.out::println);
-        Executors.newSingleThreadExecutor().submit(streamGobbler);
-        return process.waitFor();
+        StreamGobbler streamGobbler;
+        if (process != null) {
+            streamGobbler = new StreamGobbler(process.getInputStream(), System.out::println);
+            Executors.newSingleThreadExecutor().submit(streamGobbler);
+            return process.waitFor();
+        }
+        return -1;
     }
 
     public String executeCommandForResult(String command) throws InterruptedException, IOException {
         StringBuilder result = new StringBuilder();
         Process process = Runtime.getRuntime().exec(command);
         BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
-        String line = null;
+        String line;
         Pattern pattern = Pattern.compile("^([a-zA-Z0-9\\-]+)(\\s+)(device)");
         Matcher matcher;
         while ((line = in.readLine()) != null) {

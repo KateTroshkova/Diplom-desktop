@@ -35,7 +35,7 @@ public class AppModule {
     @Provides
     @Singleton
     public MobileRepositoryApi provideMobileRepository() {
-        return new MobileRepository();
+        return new MobileRepository(provideADBHelper());
     }
 
     @Provides
