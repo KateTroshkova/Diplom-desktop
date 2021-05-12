@@ -1,5 +1,6 @@
 package presentation.panel;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -37,22 +38,22 @@ public class HotkeyPanel extends VBox implements HotkeyView, DataReadyListener {
 
     @Override
     public void addHotkey(String hotkey) {
-        hotkeyList.getItems().add(hotkey);
+        Platform.runLater(() -> hotkeyList.getItems().add(hotkey));
     }
 
     @Override
     public void prepareMobileActions(ObservableList<String> actions) {
-        mobileComboBox.setItems(actions);
+        Platform.runLater(() -> mobileComboBox.setItems(actions));
     }
 
     @Override
     public void prepareDesktopActions(ObservableList<String> actions) {
-        desktopComboBox.setItems(actions);
+        Platform.runLater(() -> desktopComboBox.setItems(actions));
     }
 
     @Override
     public void update() {
-        hotkeyList.getItems().clear();
+        Platform.runLater(() -> hotkeyList.getItems().clear());
     }
 
     public void setHotkeyList(ListView<String> hotkeyList) {
