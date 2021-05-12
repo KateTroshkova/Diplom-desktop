@@ -101,7 +101,7 @@ public class MobileRepository implements MobileRepositoryApi {
                     }
                 }
                 DeviceInfo info = new DeviceInfo(resultStringBuilder.toString());
-                if (info.getFileToSend() != null) {
+                if (info.getFileToSend() != null && !info.getFileToSend().isEmpty()) {
                     int fileNameStart = info.getFileToSend().lastIndexOf("/");
                     int fileNameEnd = info.getFileToSend().length() - 1;
                     String fileName = info.getFileToSend().substring(fileNameStart, fileNameEnd);

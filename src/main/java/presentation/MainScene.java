@@ -78,6 +78,9 @@ public class MainScene extends Scene implements SceneChangeListener{
     @FXML
     private Label infoLabel;
 
+    @FXML
+    private Label phoneLabel;
+
     private static SceneChangeListener sceneChangeListener;
 
     @SuppressWarnings("unused")
@@ -121,6 +124,7 @@ public class MainScene extends Scene implements SceneChangeListener{
         usbButton.setText(res.getString("text.USB"));
         ipButton.setText(res.getString("text.IP"));
         nextButton.setText(res.getString("text.next"));
+        phoneLabel.setText(res.getString("label.phone"));
     }
 
     private void fillRightPanel(){

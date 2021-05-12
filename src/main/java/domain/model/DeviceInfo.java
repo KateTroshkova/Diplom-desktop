@@ -80,11 +80,9 @@ public class DeviceInfo {
 
     @Override
     public String toString() {
-        return "DeviceInfo{" +
-                "id='" + id + '\'' +
-                ", brand='" + brand + '\'' +
-                ", model='" + model + '\'' +
-                ", device='" + device + '\'' +
-                '}';
+        return " id= " + id + '\n' +
+                " brand= " + brand + '\n' +
+                " model= " + model + '\n' +
+                " device= " + device + '\n';
     }
 }

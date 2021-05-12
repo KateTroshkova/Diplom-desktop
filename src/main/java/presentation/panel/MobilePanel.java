@@ -2,6 +2,7 @@ package presentation.panel;
 
 import domain.model.DeviceInfo;
 import domain.model.Screenshot;
+import javafx.application.Platform;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -74,6 +75,10 @@ public class MobilePanel extends ImageView implements MobileView {
 
     @Override
     public void setInfo(DeviceInfo info) {
-        infoLabel.setText(info.toString());
+        Platform.runLater(new Runnable() {
+            @Override public void run() {
+                infoLabel.setText(info.toString());
+            }
+        });
     }
 }
