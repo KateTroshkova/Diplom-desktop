@@ -17,7 +17,7 @@ public abstract class ConnectionSource {
     public abstract void disconnect();
 
     public boolean isConnect() {
-        return isConnect;
+        return false;
     }
 
     public void nextDevice() {

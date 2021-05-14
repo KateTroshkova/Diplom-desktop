@@ -26,6 +26,8 @@ public class MobilePanel extends ImageView implements MobileView {
 
     private Button sendButton;
 
+    private float factor = 1.0f;
+
     public MobilePanel() {
         Injector injector = DaggerInjector.create();
         presenter = new MobilePresenter(this);
@@ -53,11 +55,11 @@ public class MobilePanel extends ImageView implements MobileView {
     }
 
     private void onGestureStarted(MouseEvent event) {
-        presenter.startGesture(new Point2D(event.getX()*2, event.getY()*2));
+        presenter.startGesture(new Point2D(event.getX()*factor, event.getY()*factor));
     }
 
     private void onGestureFinished(MouseEvent event) {
-        presenter.endGesture(new Point2D(event.getX()*2, event.getY()*2));
+        presenter.endGesture(new Point2D(event.getX()*factor, event.getY()*factor));
     }
 
     private void onNewPoint(MouseEvent event) {
@@ -67,8 +69,9 @@ public class MobilePanel extends ImageView implements MobileView {
     @Override
     public void updateImage(Screenshot screenshot) {
         if (screenshot.getScreenshot()!=null) {
-            setFitWidth(screenshot.getWidth() / 2.0);
-            setFitHeight(screenshot.getHeight() / 2.0);
+            factor = screenshot.getHeight()/800.0f;
+            setFitWidth(screenshot.getWidth() / factor);
+            setFitHeight(screenshot.getHeight() / factor);
             setImage(screenshot.getScreenshot());
         }
     }

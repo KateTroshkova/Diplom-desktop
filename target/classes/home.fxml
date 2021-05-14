@@ -55,30 +55,30 @@
         <RightMenuPanel fx:id="rightMenu" prefHeight="100.0" prefWidth="220.0" BorderPane.alignment="CENTER">
             <children>
                 <Label fx:id="phoneLabel" prefHeight="40.0" prefWidth="220.0"/>
-                <Label fx:id="infoLabel" prefHeight="110.0" prefWidth="220.0" style="-fx-border-color: #49b773;"/>
+                <Label fx:id="infoLabel" prefHeight="110.0" prefWidth="220.0" style="-fx-border-color: #ffd180;"/>
                 <Pane prefHeight="12.0" prefWidth="220.0"/>
                 <HBox prefWidth="220.0" BorderPane.alignment="CENTER">
                     <children>
                         <Button fx:id="usbButton" prefWidth="110" mnemonicParsing="false" text="USB"
-                                style="-fx-border-color: #49b773; -fx-background-color: ffffff"/>
+                                style="-fx-border-color: #ffd180; -fx-background-color: ffffff"/>
                         <Button fx:id="ipButton" prefWidth="110" mnemonicParsing="false" text="IP"
-                                style="-fx-border-color: #49b773; -fx-background-color: ffffff"/>
+                                style="-fx-border-color: #ffd180; -fx-background-color: ffffff"/>
                     </children>
                 </HBox>
                 <HBox prefWidth="220.0" BorderPane.alignment="CENTER">
                     <children>
                         <TextField fx:id="ipField" prefWidth="150" visible="false" promptText="xxx.xxx.xxx.xxx"
-                                   style="-fx-border-color: #49b773; -fx-background-color: ffffff"/>
+                                   style="-fx-border-color: #ffd180; -fx-background-color: ffffff"/>
                         <Button fx:id="nextButton" prefWidth="75" visible="false" text="Далее"
-                                style="-fx-border-color: #49b773; -fx-background-color: ffffff"/>
+                                style="-fx-border-color: #ffd180; -fx-background-color: ffffff"/>
                     </children>
                 </HBox>
                 <Button fx:id="disconnectButton" prefWidth="220.0" mnemonicParsing="false" text="Закончить трансляцию"
-                        style="-fx-border-color: #49b773; -fx-background-color: ffffff"/>
+                        style="-fx-border-color: #ffd180; -fx-background-color: ffffff"/>
                 <Button fx:id="hotkeyButton" prefWidth="220.0" mnemonicParsing="false" text="Назначить горячие клавиши"
-                        style="-fx-border-color: #49b773; -fx-background-color: ffffff"/>
+                        style="-fx-border-color: #ffd180; -fx-background-color: ffffff"/>
                 <Button fx:id="sendButton" prefWidth="220.0" mnemonicParsing="false" text="Отправить файл"
-                        style="-fx-border-color: #49b773; -fx-background-color: ffffff"/>
+                        style="-fx-border-color: #ffd180; -fx-background-color: ffffff"/>
             </children>
         </RightMenuPanel>
     </right>

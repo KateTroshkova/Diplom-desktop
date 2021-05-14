@@ -55,11 +55,15 @@ public class MobileRepository implements MobileRepositoryApi {
                 root.mkdirs();
             }
             try {
-                adb.executeCommand("adb " + connection.getCurrentDevice(connection instanceof USBSource) + " shell screencap "+mobilePath);
-                adb.executeCommand("adb " + connection.getCurrentDevice(connection instanceof USBSource) + " pull " + mobilePath + " " + pcPath);
-                File file = new File(pcPath + "\\screenshot" + currentIndex + ".png");
-                Image image = new Image(file.toURI().toString());
-                return new Screenshot(image, (int) image.getWidth(), (int) image.getHeight(), "", 0);
+                int result = adb.executeCommand("adb " + connection.getCurrentDevice(connection instanceof USBSource) + " shell screencap "+mobilePath);
+                result = adb.executeCommand("adb " + connection.getCurrentDevice(connection instanceof USBSource) + " pull " + mobilePath + " " + pcPath);
+                if (result==0) {
+                    File file = new File(pcPath + "\\screenshot" + currentIndex + ".png");
+                    Image image = new Image(file.toURI().toString());
+                    return new Screenshot(image, (int) image.getWidth(), (int) image.getHeight(), "", 0);
+                }
+                connection.disconnect();
+                return null;
             } catch (InterruptedException | IOException e) {
                 e.printStackTrace();
             }
@@ -103,7 +107,7 @@ public class MobileRepository implements MobileRepositoryApi {
                 DeviceInfo info = new DeviceInfo(resultStringBuilder.toString());
                 if (info.getFileToSend() != null && !info.getFileToSend().isEmpty()) {
                     int fileNameStart = info.getFileToSend().lastIndexOf("/");
-                    int fileNameEnd = info.getFileToSend().length() - 1;
+                    int fileNameEnd = info.getFileToSend().length();
                     String fileName = info.getFileToSend().substring(fileNameStart, fileNameEnd);
                     if (!(new File(pcPath + "\\" + fileName).exists())) {
                         adb.executeCommand("adb " + connection.getCurrentDevice(connection instanceof USBSource) +

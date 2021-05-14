@@ -9,19 +9,19 @@
              xmlns="http://javafx.com/javafx/11.0.1"
              xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.HotkeyScene">
     <Button fx:id="backButton" alignment="CENTER" contentDisplay="CENTER" text="Back"
-            style="-fx-border-color: #49b773; -fx-background-color: ffffff"/>
+            style="-fx-border-color: #ffd180; -fx-background-color: ffffff"/>
     <Pane prefHeight="20" prefWidth="600"/>
     <ListView fx:id="hotkeyList" prefHeight="200.0" prefWidth="200.0"
-              style="-fx-border-color: #f1d087; -fx-background-color: ffffff"/>
+              style="-fx-border-color: #ffd180; -fx-background-color: ffffff"/>
     <Pane prefHeight="20" prefWidth="600"/>
     <HBox prefHeight="100.0" prefWidth="100.0">
         <children>
-            <ComboBox fx:id="mobileSpinner" style="-fx-border-color: #49b773; -fx-background-color: ffffff"/>
-            <ComboBox fx:id="desktopSpinner" style="-fx-border-color: #49b773; -fx-background-color: ffffff"/>
+            <ComboBox fx:id="mobileSpinner" style="-fx-border-color: #ffd180; -fx-background-color: ffffff"/>
+            <ComboBox fx:id="desktopSpinner" style="-fx-border-color: #ffd180; -fx-background-color: ffffff"/>
         </children>
     </HBox>
 
     <Button fx:id="addButton" alignment="CENTER" contentDisplay="CENTER" text="Add"
-            style="-fx-border-color: #49b773; -fx-background-color: ffffff"/>
+            style="-fx-border-color: #ffd180; -fx-background-color: ffffff"/>
 
 </HotkeyPanel>
