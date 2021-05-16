@@ -19,8 +19,8 @@ public class CustomApplication extends Application implements SceneChangeListene
 
     private static final String title="Troshkova E.L. AVT-716";
     private static final String icPath="ic_launcher.png";
-    private static final String homePath="src/main/resources/home.fxml";
-    private static final String hotkeyPath="src/main/resources/dialog_hotkey.fxml";
+    private static final String homePath="home.fxml";
+    private static final String hotkeyPath="dialog_hotkey.fxml";
 
     private static final int mainWidth=800;
     private static final int mainHeight=1000;
@@ -36,10 +36,10 @@ public class CustomApplication extends Application implements SceneChangeListene
         this.primaryStage = primaryStage;
         primaryStage.setTitle(title);
         primaryStage.getIcons().add(new Image(icPath));
-        URL homeUrl = new File(homePath).toURI().toURL();
-        URL hotkeyUrl = new File(hotkeyPath).toURI().toURL();
-        BorderPane homeRoot = FXMLLoader.load(homeUrl);
-        VBox hotkeyRoot = FXMLLoader.load(hotkeyUrl);
+        //URL homeUrl = new File(homePath).toURI().toURL();
+        //URL hotkeyUrl = new File(hotkeyPath).toURI().toURL();
+        BorderPane homeRoot = FXMLLoader.load(getClass().getClassLoader().getResource(homePath));
+        VBox hotkeyRoot = FXMLLoader.load(getClass().getClassLoader().getResource(hotkeyPath));
         main = new MainScene(homeRoot, mainWidth, mainHeight);
         hotkey = new HotkeyScene(hotkeyRoot, hotkeyWidth, hotkeyHeight);
         primaryStage.setScene(main);
